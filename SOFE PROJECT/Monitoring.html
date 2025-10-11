@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Monitoring - Cooking Oil Inventory System</title>
+  <link rel="stylesheet" href="Main.css">
+</head>
+<body>
+
+  <!-- Sidebar -->
+  <div class="flex h-screen">
+    <aside class="sidebar"> 
+      <div class="sidebar-header">
+        <h2 class="sidebar-title">Conversion Inventory<br>System</h2>
+        <div class="sidebar-user-info">
+          <div class="sidebar-profile-picture">
+            <img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxMDAiIGhlaWdodD0iMTAwIiB2aWV3Qm94PSIwIDAgMTAwIDEwMCI+CiAgPGNpcmNsZSBjeD0iNTAiIGN5PSIzNSIgcj0iMjAiIGZpbGw9IiNDNUNBRDUiLz4KICA8cGF0aCBkPSJNMTUgODVjMC0yNSAzNS0yNSAzNS0yNWgxMHM3LjEgMCAxNyA1YzEyLjUgNi4zIDE4IDIwIDE4IDIwSDE1eiIgZmlsbD0iI0M1Q0FENSIvPgo8L3N2Zz4=" alt="Profile Picture">
+          </div>
+          <p class="sidebar-welcome">Welcome, Guest</p>
+          <p class="sidebar-mode">View Only Mode</p>
+        </div>
+      </div>
+      <nav class="sidebar-nav">
+        <a href="Main.html" class="nav-item">Dashboard</a>
+        <a href="Inventory.html" class="nav-item">Inventory</a>
+        <a href="Monitoring.html" class="nav-item active">Monitoring</a>
+        <a href="Invoice.html" class="nav-item">Invoice</a>
+        <a href="Profile.html" class="nav-item">Profile Settings</a>
+      </nav>
+    </aside>    <!-- Main Content -->
+    <main class="main-content">
+      <h1 class="page-title">Monitoring</h1>
+
+      <!-- Top Stats -->
+      <div class="stats-grid">
+        <div class="stat-card">
+          <p class="stat-label">Active Alerts</p>
+          <h2 class="stat-value">2</h2>
+        </div>
+        <div class="stat-card">
+          <p class="stat-label">Current Usage Rate</p>
+          <h2 class="stat-value">45%</h2>
+        </div>
+        <div class="stat-card">
+          <p class="stat-label">Avg Daily Consumption</p>
+          <h2 class="stat-value">100 kg</h2>
+        </div>
+        <div class="stat-card">
+          <p class="stat-label">Storage Temperature</p>
+          <h2 class="stat-value">22°C</h2>
+        </div>
+      </div>
+
+      <!-- Current Alerts -->
+      <section class="content-section">
+        <h2 class="section-title">Current Alerts</h2>
+        <table class="data-table">
+          <thead class="table-header">
+            <tr>
+              <th>Alert Type</th>
+              <th>Oil Type</th>
+              <th>Message</th>
+              <th>Priority</th>
+              <th>Timestamp</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr class="table-row">
+              <td class="table-cell">Low Stock</td>
+              <td class="table-cell">Canola Oil</td>
+              <td class="table-cell">Stock below minimum level</td>
+              <td class="table-cell">High</td>
+              <td class="table-cell">2025-10-11 14:30</td>
+            </tr>
+            <tr class="table-row">
+              <td class="table-cell">Temperature</td>
+              <td class="table-cell">Palm Oil Tank</td>
+              <td class="table-cell">Temperature above threshold</td>
+              <td class="table-cell">Medium</td>
+              <td class="table-cell">2025-10-11 12:15</td>
+            </tr>
+          </tbody>
+        </table>
+      </section>
+
+      <!-- Usage Trends -->
+      <section class="content-section">
+        <h2 class="section-title">Usage Trends</h2>
+        <table class="data-table">
+          <thead class="table-header">
+            <tr>
+              <th>Date</th>
+              <th>Oil Type</th>
+              <th>Consumption (kg)</th>
+              <th>Trend</th>
+              <th>Notes</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr class="table-row">
+              <td class="table-cell">2025-10-11</td>
+              <td class="table-cell">Vegetable Oil</td>
+              <td class="table-cell">120</td>
+              <td class="table-cell">Increasing</td>
+              <td class="table-cell">Higher demand</td>
+            </tr>
+            <tr class="table-row">
+              <td class="table-cell">2025-10-10</td>
+              <td class="table-cell">Canola Oil</td>
+              <td class="table-cell">80</td>
+              <td class="table-cell">Stable</td>
+              <td class="table-cell">Normal usage</td>
+            </tr>
+            <tr class="table-row">
+              <td class="table-cell">2025-10-09</td>
+              <td class="table-cell">Palm Oil</td>
+              <td class="table-cell">95</td>
+              <td class="table-cell">Decreasing</td>
+              <td class="table-cell">Reduced orders</td>
+            </tr>
+          </tbody>
+        </table>
+      </section>
+
+      <!-- Storage Monitoring -->
+      <section class="content-section">
+        <h2 class="section-title">Storage Monitoring</h2>
+        <table class="data-table">
+          <thead class="table-header">
+            <tr>
+              <th>Tank ID</th>
+              <th>Oil Type</th>
+              <th>Current Level (%)</th>
+              <th>Temperature (°C)</th>
+              <th>Status</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr class="table-row">
+              <td class="table-cell">Tank-01</td>
+              <td class="table-cell">Vegetable Oil</td>
+              <td class="table-cell">62.5</td>
+              <td class="table-cell">22</td>
+              <td class="table-cell">Normal</td>
+            </tr>
+            <tr class="table-row">
+              <td class="table-cell">Tank-02</td>
+              <td class="table-cell">Canola Oil</td>
+              <td class="table-cell">10</td>
+              <td class="table-cell">21</td>
+              <td class="table-cell">Low</td>
+            </tr>
+            <tr class="table-row">
+              <td class="table-cell">Tank-03</td>
+              <td class="table-cell">Palm Oil</td>
+              <td class="table-cell">56.7</td>
+              <td class="table-cell">23</td>
+              <td class="table-cell">Warning</td>
+            </tr>
+          </tbody>
+        </table>
+      </section>
+    </main>
+  </div>
+
+  <script>
+    // Function to update profile picture
+    function updateProfilePicture(imageUrl) {
+        const profileImage = document.querySelector('.sidebar-profile-picture img');
+        if (profileImage) {
+            profileImage.src = imageUrl;
+        }
+    }
+
+    // Load saved data on page load
+    window.addEventListener('load', function() {
+        // Load profile picture
+        const savedProfilePic = localStorage.getItem('profilePicture');
+        if (savedProfilePic) {
+            updateProfilePicture(savedProfilePic);
+        }
+
+        // Load user name
+        const savedName = localStorage.getItem('userName');
+        if (savedName) {
+            const welcomeText = document.querySelector('.sidebar-welcome');
+            if (welcomeText) {
+                welcomeText.textContent = `Welcome, ${savedName}`;
+            }
+        }
+
+        // Load privilege level
+        const savedPrivilege = localStorage.getItem('userPrivilege');
+        if (savedPrivilege) {
+            const modeText = document.querySelector('.sidebar-mode');
+            if (modeText) {
+                modeText.textContent = `${savedPrivilege} Mode`;
+            }
+        }
+    });
+  </script>
+</body>
+</html>
