@@ -1,0 +1,36 @@
+/* Inventory-specific styles */
+.unit-conversion-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  max-width: 400px;
+}
+
+.kg-label {
+  display: block;
+  margin-bottom: 0.5rem;
+}
+
+.kg-input {
+  padding: 0.5rem;
+  border: 1px solid #ccc;
+  border-radius: 0.25rem;
+}
+
+.convert-button {
+  padding: 0.5rem 1rem;
+  background-color: #2563EB;
+  color: white;
+  border: none;
+  border-radius: 0.25rem;
+  cursor: pointer;
+}
+
+.convert-button:hover {
+  background-color: #1D4ED8;
+}
+
+.result-text {
+  margin: 0;
+  font-weight: bold;
+}
