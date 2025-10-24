@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Profile Settings - Cooking Oil Inventory System</title>
+  <link rel="stylesheet" href="Main.css">
+  <link rel="stylesheet" href="profile.css">
+</head>
+<body>
+  <div class="flex h-screen">
+    <!-- Sidebar -->
+    <aside class="sidebar">
+      <div class="sidebar-header">
+        <h2 class="sidebar-title">Conversion Inventory<br>System</h2>
+        <div class="sidebar-user-info">
+          <div class="sidebar-profile-picture">
+            <img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxMDAiIGhlaWdodD0iMTAwIiB2aWV3Qm94PSIwIDAgMTAwIDEwMCI+CiAgPGNpcmNsZSBjeD0iNTAiIGN5PSIzNSIgcj0iMjAiIGZpbGw9IiNDNUNBRDUiLz4KICA8cGF0aCBkPSJNMTUgODVjMC0yNSAzNS0yNSAzNS0yNWgxMHM3LjEgMCAxNyA1YzEyLjUgNi4zIDE4IDIwIDE4IDIwSDE1eiIgZmlsbD0iI0M1Q0FENSIvPgo8L3N2Zz4=" alt="Profile Picture">
+          </div>
+          <p class="sidebar-welcome">Welcome, Guest</p>
+          <p class="sidebar-mode">Admin Mode</p>
+        </div>
+      </div>
+      <nav class="sidebar-nav">
+        <a href="Main.html" class="nav-item">Dashboard</a>
+        <a href="Inventory.html" class="nav-item">Inventory</a>
+        <a href="Monitoring.html" class="nav-item">Monitoring</a>
+        <a href="Invoice.html" class="nav-item">Invoice</a>
+        <a href="Employee.html" class="nav-item">Employee</a>
+        <a href="Profile.html" class="nav-item active">Profile Settings</a>
+      </nav>
+      <a href="#" class="nav-item" onclick="confirmLogout()">Log Out</a>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="main-content">
+      <h1 class="page-title">Profile Settings</h1>
+
+      <!-- Profile Picture -->
+      <section class="content-section profile-picture-section">
+        <div class="profile-picture-container">
+          <div class="profile-picture">
+            <img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxMDAiIGhlaWdodD0iMTAwIiB2aWV3Qm94PSIwIDAgMTAwIDEwMCI+CiAgPGNpcmNsZSBjeD0iNTAiIGN5PSIzNSIgcj0iMjAiIGZpbGw9IiNDNUNBRDUiLz4KICA8cGF0aCBkPSJNMTUgODVjMC0yNSAzNS0yNSAzNS0yNWgxMHM3LjEgMCAxNyA1YzEyLjUgNi4zIDE4IDIwIDE4IDIwSDE1eiIgZmlsbD0iI0M1Q0FENSIvPgo8L3N2Zz4=" alt="Profile Picture" id="profileImage">
+          </div>
+          <button class="primary-button" onclick="document.getElementById('profilePictureInput').click()">Change Profile Picture</button>
+          <input type="file" id="profilePictureInput" accept="image/*" style="display: none;">
+        </div>
+      </section>
+
+      <!-- Account Information -->
+      <section class="content-section">
+        <h2 class="section-title">Account Information</h2>
+        <div class="profile-form">
+          <div class="form-group">
+            <label class="form-label">Full Name</label>
+            <input type="text" class="form-input" value="John Smith" placeholder="Enter your full name">
+          </div>
+          <div class="form-group">
+            <label class="form-label">Account Privilege</label>
+            <select class="form-input">
+              <option value="guest">Admin</option>
+              <option value="staff">Manager</option>
+              <option value="manager">Staff</option>
+              <option value="admin">Guest</option>
+            </select>
+          </div>
+          <div class="form-group" style="margin-top: 2rem;">
+            <label class="form-label">Current Password</label>
+            <input type="password" class="form-input" id="currentPassword" placeholder="Enter current password">
+          </div>
+          <div class="form-group">
+            <label class="form-label">New Password</label>
+            <input type="password" class="form-input" id="newPassword" placeholder="Enter new password">
+          </div>
+          <div class="form-group">
+            <label class="form-label">Confirm New Password</label>
+            <input type="password" class="form-input" id="confirmPassword" placeholder="Confirm new password">
+          </div>
+          <div class="form-group" style="text-align: center;">
+            <button class="primary-button" id="changePasswordBtn">Change Password</button>
+          </div>
+        </div>
+      </section>
+
+      <!-- Save Button -->
+      <div class="button-container">
+        <button class="primary-button">Save Changes</button>
+      </div>
+    </main>
+  </div>
+
+  <!-- Password Verification Modal -->
+  <div id="passwordModal" class="modal">
+    <div class="modal-content">
+      <h3>Verify Password</h3>
+      <input type="password" id="verifyPassword" placeholder="Enter your current password">
+      <button id="confirmSave">Confirm</button>
+      <button id="cancelSave">Cancel</button>
+    </div>
+  </div>
+
+  <script>
+    // Get all elements
+    const profilePictureInput = document.getElementById('profilePictureInput');
+    const profileImage = document.getElementById('profileImage');
+    const sidebarProfileImage = document.querySelector('.sidebar-profile-picture img');
+    const saveButton = document.querySelector('.primary-button');
+
+    // Function to update all profile pictures
+    function updateAllProfilePictures(imageUrl) {
+        // Update main profile picture
+        if (profileImage) {
+            profileImage.src = imageUrl;
+        }
+        // Update sidebar profile picture
+        if (sidebarProfileImage) {
+            sidebarProfileImage.src = imageUrl;
+        }
+        // Save to localStorage
+        localStorage.setItem('profilePicture', imageUrl);
+    }
+
+    // Load saved profile picture on page load
+    window.addEventListener('load', function() {
+        const savedProfilePic = localStorage.getItem('profilePicture');
+        if (savedProfilePic) {
+            updateAllProfilePictures(savedProfilePic);
+        }
+    });
+
+    // Profile picture change functionality
+    profilePictureInput.addEventListener('change', function(e) {
+        const file = e.target.files[0];
+        
+        if (file) {
+            // Check if the file is an image
+            if (!file.type.startsWith('image/')) {
+                alert('Please select an image file');
+                return;
+            }
+
+            // Check file size (limit to 5MB)
+            if (file.size > 5 * 1024 * 1024) {
+                alert('Please select an image smaller than 5MB');
+                return;
+            }
+
+            // Create a FileReader to read the image
+            const reader = new FileReader();
+            
+            reader.onload = function(event) {
+                updateAllProfilePictures(event.target.result);
+            };
+
+            // Read the image file
+            reader.readAsDataURL(file);
+        }
+    });
+
+
+
+    // Load saved user data
+    const savedName = localStorage.getItem('userName');
+    const savedPrivilege = localStorage.getItem('userPrivilege');
+
+    if (savedName) {
+        document.querySelector('input[placeholder="Enter your full name"]').value = savedName;
+        document.querySelector('.sidebar-welcome').textContent = `Welcome, ${savedName}`;
+    }
+    if (savedPrivilege) {
+        document.querySelector('select.form-input').value = savedPrivilege;
+    }
+
+    // Change password functionality
+    const changePasswordBtn = document.getElementById('changePasswordBtn');
+    changePasswordBtn.addEventListener('click', function() {
+        const currentPassword = document.getElementById('currentPassword').value;
+        const newPassword = document.getElementById('newPassword').value;
+        const confirmPassword = document.getElementById('confirmPassword').value;
+        const storedPassword = localStorage.getItem('userPassword');
+
+        if (!storedPassword) {
+            // No password set, allow setting new one
+            if (newPassword && newPassword === confirmPassword) {
+                localStorage.setItem('userPassword', newPassword);
+                alert('Password set successfully!');
+                // Clear fields
+                document.getElementById('currentPassword').value = '';
+                document.getElementById('newPassword').value = '';
+                document.getElementById('confirmPassword').value = '';
+            } else {
+                alert('New passwords do not match or are empty.');
+            }
+            return;
+        }
+
+        if (currentPassword !== storedPassword) {
+            alert('Current password is incorrect.');
+            return;
+        }
+
+        if (newPassword !== confirmPassword) {
+            alert('New passwords do not match.');
+            return;
+        }
+
+        if (!newPassword) {
+            alert('Please enter a new password.');
+            return;
+        }
+
+        localStorage.setItem('userPassword', newPassword);
+        alert('Password changed successfully!');
+        // Clear fields
+        document.getElementById('currentPassword').value = '';
+        document.getElementById('newPassword').value = '';
+        document.getElementById('confirmPassword').value = '';
+    });
+
+    // Modal functionality for save changes
+    let pendingName, pendingPrivilege;
+    const modal = document.getElementById('passwordModal');
+    const verifyPasswordInput = document.getElementById('verifyPassword');
+    const confirmSaveBtn = document.getElementById('confirmSave');
+    const cancelSaveBtn = document.getElementById('cancelSave');
+
+    // Update save button handler to show modal
+    document.querySelectorAll('.primary-button').forEach(button => {
+        button.addEventListener('click', function() {
+            if (button.textContent === 'Save Changes') {
+                // Get the values to save
+                pendingName = document.querySelector('input[placeholder="Enter your full name"]').value;
+                pendingPrivilege = document.querySelector('select.form-input').value;
+
+                // Show modal
+                modal.style.display = 'block';
+                verifyPasswordInput.focus();
+            }
+        });
+    });
+
+    // Confirm save
+    confirmSaveBtn.addEventListener('click', function() {
+        const enteredPassword = verifyPasswordInput.value;
+        const storedPassword = localStorage.getItem('userPassword');
+
+        if (!storedPassword) {
+            alert('No password set. Please set a password first.');
+            modal.style.display = 'none';
+            return;
+        }
+
+        if (enteredPassword !== storedPassword) {
+            alert('Incorrect password. Changes not saved.');
+            verifyPasswordInput.value = '';
+            return;
+        }
+
+        // Save changes
+        localStorage.setItem('userName', pendingName);
+        localStorage.setItem('userPrivilege', pendingPrivilege);
+
+        // Update sidebar welcome text
+        const welcomeText = document.querySelector('.sidebar-welcome');
+        if (welcomeText) {
+            welcomeText.textContent = `Welcome, ${pendingName}`;
+        }
+
+        alert('Profile changes saved successfully!');
+        modal.style.display = 'none';
+        verifyPasswordInput.value = '';
+    });
+
+    // Cancel save
+    cancelSaveBtn.addEventListener('click', function() {
+        modal.style.display = 'none';
+        verifyPasswordInput.value = '';
+    });
+
+    // Function to confirm logout
+    function confirmLogout() {
+        if (confirm('Are you sure you want to log out?')) {
+            window.location.href = 'Login.html';
+        }
+    }
+
+    // Close modal when clicking outside
+    window.addEventListener('click', function(event) {
+        if (event.target === modal) {
+            modal.style.display = 'none';
+            verifyPasswordInput.value = '';
+        }
+    });
+  </script>
+</body>
+</html>

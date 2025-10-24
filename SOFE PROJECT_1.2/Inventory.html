@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Inventory - Cooking Oil Inventory System</title>
+  <link rel="stylesheet" href="Main.css">
+  <link rel="stylesheet" href="Inventory.css">
+</head>
+<body>
+  <div class="flex h-screen">
+    <!-- Sidebar -->
+    <aside class="sidebar">
+      <div class="sidebar-header">
+        <h2 class="sidebar-title">Conversion Inventory<br>System</h2>
+        <div class="sidebar-user-info">
+          <div class="sidebar-profile-picture">
+            <img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxMDAiIGhlaWdodD0iMTAwIiB2aWV3Qm94PSIwIDAgMTAwIDEwMCI+CiAgPGNpcmNsZSBjeD0iNTAiIGN5PSIzNSIgcj0iMjAiIGZpbGw9IiNDNUNBRDUiLz4KICA8cGF0aCBkPSJNMTUgODVjMC0yNSAzNS0yNSAzNS0yNWgxMHM3LjEgMCAxNyA1YzEyLjUgNi4zIDE4IDIwIDE4IDIwSDE1eiIgZmlsbD0iI0M1Q0FENSIvPgo8L3N2Zz4=" alt="Profile Picture">
+          </div>
+          <p class="sidebar-welcome">Welcome, Guest</p>
+          <p class="sidebar-mode">Admin Mode</p>
+        </div>
+      </div>
+      <nav class="sidebar-nav">
+        <a href="Main.html" class="nav-item">Dashboard</a>
+        <a href="Inventory.html" class="nav-item active">Inventory</a>
+        <a href="Monitoring.html" class="nav-item">Monitoring</a>
+        <a href="Invoice.html" class="nav-item">Invoice</a>
+        <a href="Employee.html" class="nav-item">Employee</a>
+        <a href="Profile.html" class="nav-item">Profile Settings</a>
+      </nav>
+      <a href="#" class="nav-item" onclick="confirmLogout()">Log Out</a>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="main-content">
+      <h1 class="page-title">Inventory Management</h1>
+
+      <!-- Inventory Summary -->
+      <div class="stats-grid">
+        <div class="stat-card">
+          <p class="stat-label">Total Stock Value</p>
+          <h2 class="stat-value">₱225,000</h2>
+        </div>
+        <div class="stat-card">
+          <p class="stat-label">Low Stock Items</p>
+          <h2 class="stat-value">2</h2>
+        </div>
+        <div class="stat-card">
+          <p class="stat-label">Total Items</p>
+          <h2 class="stat-value">3</h2>
+        </div>
+        <div class="stat-card">
+          <p class="stat-label">Storage Usage</p>
+          <h2 class="stat-value">45%</h2>
+        </div>
+      </div>
+
+      <!-- Current Inventory -->
+      <section class="content-section">
+        <h2 class="section-title">Current Inventory</h2>
+        <table class="data-table">
+          <thead class="table-header">
+            <tr>
+              <th>Oil Type</th>
+              <th>Current Stock (kg)</th>
+              <th>Minimum Level</th>
+              <th>Maximum Capacity</th>
+              <th>Unit Price (₱)</th>
+              <th>Status</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr class="table-row">
+              <td class="table-cell">Coconut Oil</td>
+              <td class="table-cell">300</td>
+              <td class="table-cell">400</td>
+              <td class="table-cell">3,000</td>
+              <td class="table-cell">65</td>
+              <td class="table-cell">Low Stock</td>
+            </tr>
+            <tr class="table-row">
+              <td class="table-cell">Palm Oil</td>
+              <td class="table-cell">1,700</td>
+              <td class="table-cell">600</td>
+              <td class="table-cell">3,000</td>
+              <td class="table-cell">45</td>
+              <td class="table-cell">Normal</td>
+            </tr>
+          </tbody>
+        </table>
+      </section>
+
+      <!-- Stock Movement History -->
+      <section class="content-section">
+        <h2 class="section-title">Stock Movement History</h2>
+        <table class="data-table" id="stock-movement">
+          <thead class="table-header">
+            <tr>
+              <th>Date</th>
+              <th>Oil Type</th>
+              <th>Transaction Type</th>
+              <th>Quantity (kg)</th>
+              <th>Reference No.</th>
+              <th>Handler</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr class="table-row">
+              <td class="table-cell">2025-10-11</td>
+              <td class="table-cell">Coconut Oil</td>
+              <td class="table-cell">Stock In</td>
+              <td class="table-cell">500</td>
+              <td class="table-cell">SI-2025101</td>
+              <td class="table-cell">John Smith</td>
+            </tr>
+            <tr class="table-row">
+              <td class="table-cell">2025-10-10</td>
+              <td class="table-cell">Palm Oil</td>
+              <td class="table-cell">Stock Out</td>
+              <td class="table-cell">200</td>
+              <td class="table-cell">SO-2025100</td>
+              <td class="table-cell">Maria Garcia</td>
+            </tr>
+          </tbody>
+        </table>
+      </section>
+
+      <!-- Unit Conversion -->
+      <section class="conversion-section">
+        <h2 class="conversion-title">Unit Conversion (Imperial Tons to Kilograms)</h2>
+        <div class="conversion-form">
+          <div class="conversion-option">
+            <h3>Direct Conversion (Consumption)</h3>
+            <label for="tons-input">Enter quantity in tons:</label>
+            <input type="number" id="tons-input" class="conversion-input" placeholder="e.g., 1" step="0.01">
+            <button class="conversion-button" onclick="convertTonsToKg()">Convert Tons to kg</button>
+            <div id="direct-result" class="conversion-result"></div>
+          </div>
+          <div class="conversion-option">
+            <h3>Refillable Conversion (kg to Bottles)</h3>
+            <label for="kg-input">Enter quantity in kg:</label>
+            <input type="number" id="kg-input" class="conversion-input" placeholder="e.g., 100" step="0.01">
+            <button class="conversion-button" onclick="convertKgToBottles()">Calculate Bottles</button>
+            <div id="refillable-result" class="conversion-result"></div>
+          </div>
+          <div class="conversion-option">
+            <h3>Storage Level Conversion</h3>
+            <label for="capacity-input">Tank Capacity (tons):</label>
+            <input type="number" id="capacity-input" class="conversion-input" placeholder="e.g., 5" step="0.01">
+            <label for="level-input">Current Level (%):</label>
+            <input type="number" id="level-input" class="conversion-input" placeholder="e.g., 62.5" step="0.01" min="0" max="100">
+            <button class="conversion-button" onclick="convertStorageToKg()">Convert to Tons and kg</button>
+            <div id="storage-result" class="conversion-result"></div>
+          </div>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <script>
+    // Function to convert imperial tons to kg (direct)
+    function convertTonsToKg() {
+        const tonsInput = document.getElementById('tons-input').value;
+        const resultDiv = document.getElementById('direct-result');
+        if (tonsInput && !isNaN(tonsInput) && tonsInput > 0) {
+            const kg = tonsInput * 1016.0469088;
+            resultDiv.textContent = `${tonsInput} imperial tons = ${kg.toFixed(2)} kg`;
+        } else {
+            resultDiv.textContent = 'Please enter a valid positive number for imperial tons.';
+        }
+    }
+
+    // Function to convert kg to bottles
+    function convertKgToBottles() {
+        const kgInput = document.getElementById('kg-input').value;
+        const resultDiv = document.getElementById('refillable-result');
+        if (kgInput && !isNaN(kgInput) && kgInput > 0) {
+            const liter1 = Math.floor(kgInput / 1); // 1 liter bottle (assuming 1 kg per liter for oil density)
+            const required1 = liter1 * 1;
+            const unused1 = kgInput - required1;
+            const liter1_5 = Math.floor(kgInput / 1.5); // 1.5 liter bottle
+            const required1_5 = liter1_5 * 1.5;
+            const unused1_5 = kgInput - required1_5;
+            const ml350 = Math.floor(kgInput / 0.35); // 350ml bottle
+            const required350 = ml350 * 0.35;
+            const unused350 = kgInput - required350;
+            resultDiv.innerHTML = `${kgInput} kg can fill:<br>- ${liter1} x 1 liter bottles (requires ${required1.toFixed(2)} L, unused ${unused1.toFixed(2)} L)<br>- ${liter1_5} x 1.5 liter bottles (requires ${required1_5.toFixed(2)} L, unused ${unused1_5.toFixed(2)} L)<br>- ${ml350} x 350ml bottles (requires ${required350.toFixed(2)} L, unused ${unused350.toFixed(2)} L)`;
+        } else {
+            resultDiv.textContent = 'Please enter a valid positive number for kg.';
+        }
+    }
+
+    // Function to convert storage level to imperial tons and kg
+    function convertStorageToKg() {
+        const capacity = document.getElementById('capacity-input').value;
+        const level = document.getElementById('level-input').value;
+        const resultDiv = document.getElementById('storage-result');
+        if (capacity && !isNaN(capacity) && capacity > 0 && level && !isNaN(level) && level >= 0 && level <= 100) {
+            const currentTons = (capacity * level) / 100;
+            const kg = currentTons * 1016.0469088;
+            resultDiv.textContent = `Current level: ${currentTons.toFixed(4)} imperial tons = ${kg.toFixed(2)} kg`;
+        } else {
+            resultDiv.textContent = 'Please enter valid capacity (positive imperial tons) and level (0-100%).';
+        }
+    }
+
+    // Function to update profile picture
+    function updateProfilePicture(imageUrl) {
+        const profileImage = document.querySelector('.sidebar-profile-picture img');
+        if (profileImage) {
+            profileImage.src = imageUrl;
+        }
+    }
+
+    // Function to confirm logout
+    function confirmLogout() {
+        if (confirm('Are you sure you want to log out?')) {
+            window.location.href = 'Login.html';
+        }
+    }
+
+    // Function to update top stats
+    function updateTopStats() {
+        const monitorings = JSON.parse(localStorage.getItem('monitorings')) || [];
+
+        // Calculate current stock levels
+        const stockLevels = { 'Coconut Oil': 300, 'Palm Oil': 1700 }; // Default
+        monitorings.forEach(m => {
+            if (m.transactionType === 'Stock In') {
+                stockLevels[m.oilType] += m.quantity;
+            } else if (m.transactionType === 'Stock Out') {
+                stockLevels[m.oilType] -= m.quantity;
+            }
+        });
+
+        // Total stock value (assuming prices: Coconut 65/kg, Palm 45/kg)
+        const totalValue = (stockLevels['Coconut Oil'] * 65) + (stockLevels['Palm Oil'] * 45);
+
+        // Low stock items (below minimum: Coconut 400, Palm 600)
+        const lowStockItems = (stockLevels['Coconut Oil'] < 400 ? 1 : 0) + (stockLevels['Palm Oil'] < 600 ? 1 : 0);
+
+        // Total items: 3 (2 oils + 1 other?)
+        const totalItems = 3;
+
+        // Storage usage (assume max 10000 kg)
+        const totalStock = stockLevels['Coconut Oil'] + stockLevels['Palm Oil'];
+        const usagePercent = Math.round((totalStock / 10000) * 100);
+
+        // Update stats
+        document.querySelector('.stat-card:nth-child(1) .stat-value').textContent = `₱${totalValue.toLocaleString()}`;
+        document.querySelector('.stat-card:nth-child(2) .stat-value').textContent = lowStockItems;
+        document.querySelector('.stat-card:nth-child(3) .stat-value').textContent = totalItems;
+        document.querySelector('.stat-card:nth-child(4) .stat-value').textContent = `${usagePercent}%`;
+    }
+
+    // Function to update Stock Movement History table
+    function updateStockMovement() {
+        const monitorings = JSON.parse(localStorage.getItem('monitorings')) || [];
+        const tbody = document.querySelector('#stock-movement tbody');
+        tbody.innerHTML = '';
+
+        // Show all monitorings
+        monitorings.forEach((monitoring, index) => {
+            const refNo = monitoring.transactionType === 'Stock In' ? `SI-${monitoring.date.replace(/-/g, '')}${index}` : `SO-${monitoring.date.replace(/-/g, '')}${index}`;
+            const row = document.createElement('tr');
+            row.className = 'table-row';
+            row.innerHTML = `
+                <td class="table-cell">${monitoring.date}</td>
+                <td class="table-cell">${monitoring.oilType}</td>
+                <td class="table-cell">${monitoring.transactionType}</td>
+                <td class="table-cell">${monitoring.quantity}</td>
+                <td class="table-cell">${refNo}</td>
+                <td class="table-cell">${monitoring.handler}</td>
+            `;
+            tbody.appendChild(row);
+        });
+
+        // If no monitorings, show default
+        if (monitorings.length === 0) {
+            tbody.innerHTML = `
+                <tr class="table-row">
+                  <td class="table-cell">2025-10-11</td>
+                  <td class="table-cell">Coconut Oil</td>
+                  <td class="table-cell">Stock In</td>
+                  <td class="table-cell">500</td>
+                  <td class="table-cell">SI-2025101</td>
+                  <td class="table-cell">John Smith</td>
+                </tr>
+                <tr class="table-row">
+                  <td class="table-cell">2025-10-10</td>
+                  <td class="table-cell">Palm Oil</td>
+                  <td class="table-cell">Stock Out</td>
+                  <td class="table-cell">200</td>
+                  <td class="table-cell">SO-2025100</td>
+                  <td class="table-cell">Maria Garcia</td>
+                </tr>
+            `;
+        }
+    }
+
+    // Load saved data on page load
+    window.addEventListener('load', function() {
+        // Load profile picture
+        const savedProfilePic = localStorage.getItem('profilePicture');
+        if (savedProfilePic) {
+            updateProfilePicture(savedProfilePic);
+        }
+
+        // Load user name
+        const savedName = localStorage.getItem('userName');
+        if (savedName) {
+            const welcomeText = document.querySelector('.sidebar-welcome');
+            if (welcomeText) {
+                welcomeText.textContent = `Welcome, ${savedName}`;
+            }
+        }
+
+        // Load privilege level
+        const savedPrivilege = localStorage.getItem('userPrivilege');
+        if (savedPrivilege) {
+            const modeText = document.querySelector('.sidebar-mode');
+            if (modeText) {
+                modeText.textContent = `${savedPrivilege} Mode`;
+            }
+        }
+
+        // Update stock movement
+        updateStockMovement();
+
+        // Update top stats
+        updateTopStats();
+    });
+  </script>
+</body>
+</html>

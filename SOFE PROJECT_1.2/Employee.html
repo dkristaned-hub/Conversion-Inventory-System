@@ -1,0 +1,466 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Employee Management</title>
+  <link rel="stylesheet" href="Employee.css">
+</head>
+<body>
+
+  <!-- Sidebar -->
+  <div class="flex h-screen">
+    <aside class="sidebar">
+      <div class="sidebar-header">
+        <h2 class="sidebar-title">Conversion Inventory<br>System</h2>
+        <div class="sidebar-user-info">
+          <div class="sidebar-profile-picture">
+            <img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxMDAiIGhlaWdodD0iMTAwIiB2aWV3Qm94PSIwIDAgMTAwIDEwMCI+CiAgPGNpcmNsZSBjeD0iNTAiIGN5PSIzNSIgcj0iMjAiIGZpbGw9IiNDNUNBRDUiLz4KICA8cGF0aCBkPSJNMTUgODVjMC0yNSAzNS0yNSAzNS0yNWgxMHM3LjEgMCAxNyA1YzEyLjUgNi4zIDE4IDIwIDE4IDIwSDE1eiIgZmlsbD0iI0M1Q0FENSIvPgo8L3N2Zz4=" alt="Profile Picture">
+          </div>
+          <p class="sidebar-welcome">Welcome, Guest</p>
+          <p class="sidebar-mode">Admin Mode</p>
+        </div>
+      </div>
+      <nav class="sidebar-nav">
+        <a href="Main.html" class="nav-item">Dashboard</a>
+        <a href="Inventory.html" class="nav-item">Inventory</a>
+        <a href="Monitoring.html" class="nav-item">Monitoring</a>
+        <a href="Invoice.html" class="nav-item">Invoice</a>
+        <a href="Employee.html" class="nav-item active">Employee</a>
+        <a href="Profile.html" class="nav-item">Profile Settings</a>
+      </nav>
+      <a href="#" class="nav-item" onclick="confirmLogout()">Log Out</a>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="main-content">
+      <h1 class="page-title">Employee Management</h1>
+
+      <!-- Top Stats -->
+      <div class="stats-grid">
+        <div class="stat-card">
+          <p class="stat-label">Total Employees</p>
+          <h2 class="stat-value" id="total-employees">0</h2>
+        </div>
+        <div class="stat-card">
+          <p class="stat-label">Present Today</p>
+          <h2 class="stat-value" id="present-today">0</h2>
+        </div>
+        <div class="stat-card">
+          <p class="stat-label">On Shift</p>
+          <h2 class="stat-value" id="on-shift">0</h2>
+        </div>
+        <div class="stat-card">
+          <p class="stat-label">Total Positions</p>
+          <h2 class="stat-value" id="total-positions">0</h2>
+        </div>
+      </div>
+
+      <!-- Employee Log -->
+      <section class="content-section">
+        <h2 class="section-title">Employee Log</h2>
+        <table class="data-table" id="employee-log-table">
+          <thead class="table-header">
+            <tr>
+              <th>Name</th>
+              <th>Position</th>
+              <th>ID Number</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr class="table-row">
+              <td class="table-cell">John Doe</td>
+              <td class="table-cell">Manager</td>
+              <td class="table-cell">EMP001</td>
+            </tr>
+            <tr class="table-row">
+              <td class="table-cell">Jane Smith</td>
+              <td class="table-cell">Supervisor</td>
+              <td class="table-cell">EMP002</td>
+            </tr>
+            <tr class="table-row">
+              <td class="table-cell">Bob Johnson</td>
+              <td class="table-cell">Technician</td>
+              <td class="table-cell">EMP003</td>
+            </tr>
+            <tr class="table-row">
+              <td class="table-cell">Alice Brown</td>
+              <td class="table-cell">Operator</td>
+              <td class="table-cell">EMP004</td>
+            </tr>
+            <tr class="table-row">
+              <td class="table-cell">Charlie Wilson</td>
+              <td class="table-cell">Clerk</td>
+              <td class="table-cell">EMP005</td>
+            </tr>
+          </tbody>
+        </table>
+      </section>
+
+      <!-- Employee Shifts -->
+      <section class="content-section">
+        <h2 class="section-title">Employee Shifts</h2>
+        <table class="data-table">
+          <thead class="table-header">
+            <tr>
+              <th>Employee Name</th>
+              <th>Shift Start</th>
+              <th>Shift End</th>
+              <th>Days</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr class="table-row">
+              <td class="table-cell">John Doe</td>
+              <td class="table-cell">08:00 AM</td>
+              <td class="table-cell">05:00 PM</td>
+              <td class="table-cell">Mon-Fri</td>
+            </tr>
+            <tr class="table-row">
+              <td class="table-cell">Jane Smith</td>
+              <td class="table-cell">09:00 AM</td>
+              <td class="table-cell">06:00 PM</td>
+              <td class="table-cell">Mon-Fri</td>
+            </tr>
+            <tr class="table-row">
+              <td class="table-cell">Bob Johnson</td>
+              <td class="table-cell">07:00 AM</td>
+              <td class="table-cell">03:00 PM</td>
+              <td class="table-cell">Tue-Sat</td>
+            </tr>
+            <tr class="table-row">
+              <td class="table-cell">Alice Brown</td>
+              <td class="table-cell">06:00 AM</td>
+              <td class="table-cell">02:00 PM</td>
+              <td class="table-cell">Mon-Fri</td>
+            </tr>
+            <tr class="table-row">
+              <td class="table-cell">Charlie Wilson</td>
+              <td class="table-cell">10:00 AM</td>
+              <td class="table-cell">07:00 PM</td>
+              <td class="table-cell">Wed-Sun</td>
+            </tr>
+          </tbody>
+        </table>
+      </section>
+
+      <!-- Active Present Attendance -->
+      <section class="content-section">
+        <h2 class="section-title">Active Present Attendance</h2>
+        <table class="data-table" id="attendance-table">
+          <thead class="table-header">
+            <tr>
+              <th>Employee Name</th>
+              <th>Check-in Time</th>
+              <th>Check-out Time</th>
+              <th>Status</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr class="table-row">
+              <td class="table-cell">John Doe</td>
+              <td class="table-cell">08:15 AM</td>
+              <td class="table-cell">-</td>
+              <td class="table-cell">Present</td>
+            </tr>
+            <tr class="table-row">
+              <td class="table-cell">Jane Smith</td>
+              <td class="table-cell">09:05 AM</td>
+              <td class="table-cell">05:30 PM</td>
+              <td class="table-cell">Checked Out</td>
+            </tr>
+            <tr class="table-row">
+              <td class="table-cell">Bob Johnson</td>
+              <td class="table-cell">07:10 AM</td>
+              <td class="table-cell">-</td>
+              <td class="table-cell">Present</td>
+            </tr>
+            <tr class="table-row">
+              <td class="table-cell">Alice Brown</td>
+              <td class="table-cell">06:20 AM</td>
+              <td class="table-cell">02:15 PM</td>
+              <td class="table-cell">Checked Out</td>
+            </tr>
+            <tr class="table-row">
+              <td class="table-cell">Charlie Wilson</td>
+              <td class="table-cell">-</td>
+              <td class="table-cell">-</td>
+              <td class="table-cell">Absent</td>
+            </tr>
+          </tbody>
+        </table>
+      </section>
+
+      <!-- Account Management -->
+      <section class="content-section">
+        <h2 class="section-title">Employee Management</h2>
+        <table class="data-table" id="accounts-table">
+          <thead class="table-header">
+            <tr>
+              <th>Username</th>
+              <th>Full Name</th>
+              <th>Privilege</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            <!-- Accounts will be populated here -->
+          </tbody>
+        </table>
+        <div class="table-actions">
+          <button type="button" class="conversion-button" onclick="toggleForm()">Add Account</button>
+          <button type="button" class="conversion-button" onclick="clearAllAccounts()">Clear All Accounts</button>
+        </div>
+        <div class="account-management" style="display: none;">
+          <div class="form-group">
+            <label class="form-label" for="new-username">Username</label>
+            <input type="text" id="new-username" class="form-input" placeholder="Enter username">
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="new-password">Password</label>
+            <input type="password" id="new-password" class="form-input" placeholder="Enter password">
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="new-fullname">Full Name</label>
+            <input type="text" id="new-fullname" class="form-input" placeholder="Enter full name">
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="new-privilege">Privilege Level</label>
+            <select id="new-privilege" class="form-input">
+              <option value="Admin">Admin</option>
+              <option value="Staff">Staff</option>
+              <option value="Manager">Manager</option>
+            </select>
+          </div>
+          <button type="button" class="login-button" onclick="submitAccount()">Submit</button>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <script>
+    // Function to update profile picture
+    function updateProfilePicture(imageUrl) {
+        const profileImage = document.querySelector('.sidebar-profile-picture img');
+        if (profileImage) {
+            profileImage.src = imageUrl;
+        }
+    }
+
+    // Function to confirm logout
+    function confirmLogout() {
+        if (confirm('Are you sure you want to log out?')) {
+            window.location.href = 'Login.html';
+        }
+    }
+
+    // Function to update employee stats
+    function updateEmployeeStats() {
+        // Count total employees from the table
+        const employeeRows = document.querySelectorAll('#employee-log-table tbody tr');
+        const totalEmployees = employeeRows.length;
+
+        // Count present employees (status = Present)
+        const attendanceRows = document.querySelectorAll('#attendance-table tbody tr');
+        let presentToday = 0;
+        let onShift = 0;
+
+        attendanceRows.forEach(row => {
+            const statusCell = row.cells[3].textContent;
+            if (statusCell === 'Present') {
+                presentToday++;
+                onShift++;
+            } else if (statusCell === 'Checked Out') {
+                presentToday++;
+            }
+        });
+
+        // Count unique positions
+        const positions = new Set();
+        employeeRows.forEach(row => {
+            const positionCell = row.cells[1].textContent;
+            positions.add(positionCell);
+        });
+        const totalPositions = positions.size;
+
+        // Update the stats
+        document.getElementById('total-employees').textContent = totalEmployees;
+        document.getElementById('present-today').textContent = presentToday;
+        document.getElementById('on-shift').textContent = onShift;
+        document.getElementById('total-positions').textContent = totalPositions;
+    }
+
+    // Function to add new account
+    function addNewAccount() {
+        const username = document.getElementById('new-username').value.trim();
+        const password = document.getElementById('new-password').value.trim();
+        const fullname = document.getElementById('new-fullname').value.trim();
+        const privilege = document.getElementById('new-privilege').value;
+
+        if (!username || !password || !fullname) {
+            alert('Please fill in all fields.');
+            return;
+        }
+
+        // Get existing accounts from localStorage
+        let accounts = JSON.parse(localStorage.getItem('accounts')) || [];
+
+        // Check if username already exists
+        if (accounts.some(account => account.username === username)) {
+            alert('Username already exists.');
+            return;
+        }
+
+        // Add new account
+        accounts.push({ username, password, fullname, privilege });
+        localStorage.setItem('accounts', JSON.stringify(accounts));
+
+        // Clear form
+        document.getElementById('new-username').value = '';
+        document.getElementById('new-password').value = '';
+        document.getElementById('new-fullname').value = '';
+        document.getElementById('new-privilege').value = 'User';
+
+        // Update accounts table
+        updateAccountsTable();
+    }
+
+    // Function to update accounts table
+    function updateAccountsTable() {
+        const accounts = JSON.parse(localStorage.getItem('accounts')) || [];
+        const tbody = document.querySelector('#accounts-table tbody');
+        tbody.innerHTML = '';
+
+        accounts.forEach((account, index) => {
+            const row = document.createElement('tr');
+            row.className = 'table-row';
+            row.innerHTML = `
+                <td class="table-cell">${account.username}</td>
+                <td class="table-cell">${account.fullname}</td>
+                <td class="table-cell">${account.privilege}</td>
+                <td class="table-cell">
+                    <button class="action-button edit" onclick="editAccount(${index})">Edit</button>
+                    <button class="action-button delete" onclick="deleteAccount(${index})">Delete</button>
+                </td>
+            `;
+            tbody.appendChild(row);
+        });
+    }
+
+    // Function to edit account
+    function editAccount(index) {
+        const accounts = JSON.parse(localStorage.getItem('accounts')) || [];
+        const account = accounts[index];
+
+        document.getElementById('new-username').value = account.username;
+        document.getElementById('new-password').value = account.password;
+        document.getElementById('new-fullname').value = account.fullname;
+        document.getElementById('new-privilege').value = account.privilege;
+
+        // Remove the account temporarily
+        accounts.splice(index, 1);
+        localStorage.setItem('accounts', JSON.stringify(accounts));
+        updateAccountsTable();
+    }
+
+    // Function to delete account
+    function deleteAccount(index) {
+        if (confirm('Are you sure you want to delete this account?')) {
+            const accounts = JSON.parse(localStorage.getItem('accounts')) || [];
+            accounts.splice(index, 1);
+            localStorage.setItem('accounts', JSON.stringify(accounts));
+            updateAccountsTable();
+        }
+    }
+
+    // Function to clear all accounts
+    function clearAllAccounts() {
+        if (confirm('Are you sure you want to clear all accounts? This action cannot be undone.')) {
+            localStorage.removeItem('accounts');
+            updateAccountsTable();
+        }
+    }
+
+    // Function to toggle the form visibility
+    function toggleForm() {
+        const form = document.querySelector('.account-management');
+        if (form.style.display === 'none' || form.style.display === '') {
+            form.style.display = 'block';
+        } else {
+            form.style.display = 'none';
+        }
+    }
+
+    // Function to submit the account
+    function submitAccount() {
+        const username = document.getElementById('new-username').value.trim();
+        const password = document.getElementById('new-password').value.trim();
+        const fullname = document.getElementById('new-fullname').value.trim();
+        const privilege = document.getElementById('new-privilege').value;
+
+        if (!username || !password || !fullname) {
+            alert('Please fill in all fields.');
+            return;
+        }
+
+        // Get existing accounts from localStorage
+        let accounts = JSON.parse(localStorage.getItem('accounts')) || [];
+
+        // Check if username already exists
+        if (accounts.some(account => account.username === username)) {
+            alert('Username already exists.');
+            return;
+        }
+
+        // Add new account
+        accounts.push({ username, password, fullname, privilege });
+        localStorage.setItem('accounts', JSON.stringify(accounts));
+
+        // Clear form
+        document.getElementById('new-username').value = '';
+        document.getElementById('new-password').value = '';
+        document.getElementById('new-fullname').value = '';
+        document.getElementById('new-privilege').value = 'User';
+
+        // Update accounts table
+        updateAccountsTable();
+
+        // Hide the form after submission
+        toggleForm();
+    }
+
+    // Load saved data on page load
+    window.addEventListener('load', function() {
+        // Load profile picture
+        const savedProfilePic = localStorage.getItem('profilePicture');
+        if (savedProfilePic) {
+            updateProfilePicture(savedProfilePic);
+        }
+
+        // Load user name
+        const savedName = localStorage.getItem('userName');
+        if (savedName) {
+            const welcomeText = document.querySelector('.sidebar-welcome');
+            if (welcomeText) {
+                welcomeText.textContent = `Welcome, ${savedName}`;
+            }
+        }
+
+        // Load privilege level
+        const savedPrivilege = localStorage.getItem('userPrivilege');
+        if (savedPrivilege) {
+            const modeText = document.querySelector('.sidebar-mode');
+            if (modeText) {
+                modeText.textContent = `${savedPrivilege} Mode`;
+            }
+        }
+
+        // Update employee stats
+        updateEmployeeStats();
+
+        // Update accounts table
+        updateAccountsTable();
+    });
+  </script>
+</body>
+</html>
