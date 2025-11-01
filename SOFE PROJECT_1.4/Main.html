@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cooking Oil Inventory System</title>
+  <link rel="stylesheet" href="Main.css">
+</head>
+<body>
+
+  <!-- Sidebar -->
+  <div class="flex h-screen">
+    <aside class="sidebar"> 
+      <div class="sidebar-header">
+        <h2 class="sidebar-title">Conversion Inventory<br>System</h2>
+        <button class="minimize-btn" onclick="toggleSidebar()"></button>
+        <div class="sidebar-user-info">
+          <div class="sidebar-profile-picture">
+            <img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxMDAiIGhlaWdodD0iMTAwIiB2aWV3Qm94PSIwIDAgMTAwIDEwMCI+CiAgPGNpcmNsZSBjeD0iNTAiIGN5PSIzNSIgcj0iMjAiIGZpbGw9IiNDNUNBRDUiLz4KICA8cGF0aCBkPSJNMTUgODVjMC0yNSAzNS0yNSAzNS0yNWgxMHM3LjEgMCAxNyA1YzEyLjUgNi4zIDE4IDIwIDE4IDIwSDE1eiIgZmlsbD0iI0M1Q0FENSIvPgo8L3N2Zz4=" alt="Profile Picture">
+          </div>
+          <p class="sidebar-welcome">Welcome, Guest</p>
+          <p class="sidebar-mode">Admin Mode</p>
+        </div>
+      </div>
+      <nav class="sidebar-nav">
+        <a href="Main.html" class="nav-item active">Dashboard</a>
+        <a href="Inventory.html" class="nav-item">Inventory</a>
+        <a href="Monitoring.html" class="nav-item">Monitoring</a>
+        <a href="Invoice.html" class="nav-item">Invoice</a>
+        <a href="Employee.html" class="nav-item">Employee</a>
+        <a href="Profile.html" class="nav-item">Profile Settings</a>
+      </nav>
+      <a href="#" class="nav-item logout-link" onclick="confirmLogout()">Log Out</a>
+    </aside>    <!-- Main Content -->
+    <main class="main-content">
+      <h1 class="page-title">Dashboard</h1>
+
+      <!-- Top Stats -->
+      <div class="stats-grid">
+        <div class="stat-card">
+          <p class="stat-label">Total Oil Volume</p>
+          <h2 class="stat-value">4,500 kg</h2>
+        </div>
+        <div class="stat-card">
+          <p class="stat-label">Storage Capacity</p>
+          <h2 class="stat-value">0/10,000 kg</h2>
+        </div>
+        <div class="stat-card">
+          <p class="stat-label">Types of Oil</p>
+          <h2 class="stat-value">2</h2>
+        </div>
+        <div class="stat-card">
+          <p class="stat-label">Pending Deliveries</p>
+          <h2 class="stat-value">5</h2>
+        </div>
+      </div>
+
+      <!-- Upcoming Resupply Schedule -->
+      <section class="content-section">
+        <div class="log-header">
+          <h2 class="section-title">Upcoming Resupply Schedule</h2>
+          <input type="text" class="search-bar" placeholder="Search schedule..." onkeyup="filterLogs(this, 'upcoming-resupply-table')">
+        </div>
+        <table class="data-table" id="upcoming-resupply-table">
+          <thead class="table-header">
+            <tr>
+              <th>Delivery Date</th>
+              <th>Oil Type</th>
+              <th>Supplier</th>
+              <th>Volume (kg)</th>
+              <th>Status</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr class="table-row">
+              <td class="table-cell-muted" colspan="5">No upcoming deliveries</td>
+            </tr>
+          </tbody>
+        </table>
+        <div class="table-actions">
+          <button class="primary-button" onclick="clearUpcomingResupplySchedule()">Clear Schedule</button>
+        </div>
+      </section>
+
+      <!-- Recent Activity -->
+      <section class="content-section">
+        <div class="log-header">
+          <h2 class="section-title">Recent Activity</h2>
+          <input type="text" class="search-bar" placeholder="Search activity..." onkeyup="filterLogs(this, 'recent-activity')">
+        </div>
+        <table class="data-table" id="recent-activity">
+          <thead class="table-header">
+            <tr>
+              <th>Date</th>
+              <th>Item</th>
+              <th>Action</th>
+              <th>Quantity</th>
+              <th>Weight</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr class="table-row">
+              <td class="table-cell">2025-09-28</td>
+              <td class="table-cell">Coconut Oil</td>
+              <td class="table-cell">Stock In</td>
+              <td class="table-cell">50</td>
+              <td class="table-cell">500 kg</td>
+            </tr>
+          </tbody>
+        </table>
+        <div class="table-actions">
+          <button class="primary-button" onclick="clearRecentActivity()">Clear Activity</button>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <!-- Confirmation Modal for Clear Upcoming Resupply Schedule -->
+  <div id="clearResupplyModal" class="modal" style="display:none;">
+    <div class="modal-content">
+      <h2>Confirm Clear</h2>
+      <p>Are you sure you want to clear the upcoming resupply schedule?</p>
+      <div class="modal-buttons">
+        <button onclick="confirmClearResupply()">OK</button>
+        <button onclick="closeModal('clearResupplyModal')">Cancel</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Confirmation Modal for Clear Recent Activity -->
+  <div id="clearActivityModal" class="modal" style="display:none;">
+    <div class="modal-content">
+      <h2>Confirm Clear</h2>
+      <p>Are you sure you want to clear the recent activity?</p>
+      <div class="modal-buttons">
+        <button onclick="confirmClearActivity()">OK</button>
+        <button onclick="closeModal('clearActivityModal')">Cancel</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="Main.js"></script>
+</body>
+</html>

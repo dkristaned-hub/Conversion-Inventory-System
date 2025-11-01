@@ -1,0 +1,388 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Employee Management</title>
+  <link rel="stylesheet" href="Main.css">
+  <link rel="stylesheet" href="Employee.css">
+</head>
+<body>
+
+  <!-- Sidebar -->
+  <div class="flex h-screen">
+    <aside class="sidebar">
+      <div class="sidebar-header">
+        <h2 class="sidebar-title">Conversion Inventory<br>System</h2>
+        <button class="minimize-btn" onclick="toggleSidebar()"></button>
+        <div class="sidebar-user-info">
+          <div class="sidebar-profile-picture">
+            <img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxMDAiIGhlaWdodD0iMTAwIiB2aWV3Qm94PSIwIDAgMTAwIDEwMCI+CiAgPGNpcmNsZSBjeD0iNTAiIGN5PSIzNSIgcj0iMjAiIGZpbGw9IiNDNUNBRDUiLz4KICA8cGF0aCBkPSJNMTUgODVjMC0yNSAzNS0yNSAzNS0yNWgxMHM3LjEgMCAxNyA1YzEyLjUgNi4zIDE4IDIwIDE4IDIwSDE1eiIgZmlsbD0iI0M1Q0FENSIvPgo8L3N2Zz4=" alt="Profile Picture">
+          </div>
+          <p class="sidebar-welcome">Welcome, Guest</p>
+          <p class="sidebar-mode">Admin Mode</p>
+        </div>
+      </div>
+      <nav class="sidebar-nav">
+        <a href="Main.html" class="nav-item">Dashboard</a>
+        <a href="Inventory.html" class="nav-item">Inventory</a>
+        <a href="Monitoring.html" class="nav-item">Monitoring</a>
+        <a href="Invoice.html" class="nav-item">Invoice</a>
+        <a href="Employee.html" class="nav-item active">Employee</a>
+        <a href="Profile.html" class="nav-item">Profile Settings</a>
+      </nav>
+      <a href="#" class="nav-item logout-link" onclick="confirmLogout()">Log Out</a>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="main-content">
+      <h1 class="page-title">Employee Management</h1>
+
+      <!-- Top Stats -->
+      <div class="stats-grid">
+        <div class="stat-card">
+          <p class="stat-label">Total Employees</p>
+          <h2 class="stat-value" id="total-employees">0</h2>
+        </div>
+        <div class="stat-card">
+          <p class="stat-label">Present Today</p>
+          <h2 class="stat-value" id="present-today">0</h2>
+        </div>
+        <div class="stat-card">
+          <p class="stat-label">On Shift</p>
+          <h2 class="stat-value" id="on-shift">0</h2>
+        </div>
+        <div class="stat-card">
+          <p class="stat-label">Total Positions</p>
+          <h2 class="stat-value" id="total-positions">0</h2>
+        </div>
+      </div>
+
+      <!-- Employee Log -->
+      <section class="content-section">
+        <div class="log-header">
+          <h2 class="section-title">Employee Log</h2>
+          <input type="text" class="search-bar" placeholder="Search log..." onkeyup="filterLogs(this, 'employee-log-table')">
+        </div>
+        <div class="logs-container">
+          <table class="data-table" id="employee-log-table">
+            <thead class="table-header">
+              <tr>
+                <th>Name</th>
+                <th>Position</th>
+                <th>ID Number</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr class="table-row">
+                <td class="table-cell">John Doe</td>
+                <td class="table-cell">Manager</td>
+                <td class="table-cell">ADM-001</td>
+              </tr>
+              <tr class="table-row">
+                <td class="table-cell">Jane Smith</td>
+                <td class="table-cell">Supervisor</td>
+                <td class="table-cell">STF-001</td>
+              </tr>
+              <tr class="table-row">
+                <td class="table-cell">Bob Johnson</td>
+                <td class="table-cell">Technician</td>
+                <td class="table-cell">MNG-001</td>
+              </tr>
+              <tr class="table-row">
+                <td class="table-cell">Alice Brown</td>
+                <td class="table-cell">Clerk</td>
+                <td class="table-cell">CLK-001</td>
+              </tr>
+              <tr class="table-row">
+                <td class="table-cell">Charlie Wilson</td>
+                <td class="table-cell">Operator</td>
+                <td class="table-cell">OPR-001</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="table-actions">
+          <button class="conversion-button" onclick="showClearEmployeeLogModal()">Clear Employee Log</button>
+        </div>
+      </section>
+
+      <!-- Employee Shifts -->
+      <section class="content-section">
+        <div class="log-header">
+          <h2 class="section-title">Employee Shifts</h2>
+          <input type="text" class="search-bar" placeholder="Search shifts..." onkeyup="filterLogs(this, 'employee-shifts-table')">
+        </div>
+        <table class="data-table" id="employee-shifts-table">
+          <thead class="table-header">
+            <tr>
+              <th>Employee Name</th>
+              <th>ID Number</th>
+              <th>Shift Start</th>
+              <th>Shift End</th>
+              <th>Day Start</th>
+              <th>Day End</th>
+              <th>Conducted By</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr class="table-row">
+              <td class="table-cell">John Doe</td>
+              <td class="table-cell">MNG-001</td>
+              <td class="table-cell">08:00 AM</td>
+              <td class="table-cell">05:00 PM</td>
+              <td class="table-cell">Monday</td>
+              <td class="table-cell">Friday</td>
+              <td class="table-cell">
+                <button class="action-button edit" onclick="editShift(0)">Edit</button>
+                <button class="action-button delete" onclick="deleteShift(0)">Delete</button>
+              </td>
+            </tr>
+            <tr class="table-row">
+              <td class="table-cell">Jane Smith</td>
+              <td class="table-cell">STF-001</td>
+              <td class="table-cell">09:00 AM</td>
+              <td class="table-cell">06:00 PM</td>
+              <td class="table-cell">Monday</td>
+              <td class="table-cell">Friday</td>
+              <td class="table-cell">
+                <button class="action-button edit" onclick="editShift(1)">Edit</button>
+                <button class="action-button delete" onclick="deleteShift(1)">Delete</button>
+              </td>
+            </tr>
+            <tr class="table-row">
+              <td class="table-cell">Bob Johnson</td>
+              <td class="table-cell">STF-002</td>
+              <td class="table-cell">07:00 AM</td>
+              <td class="table-cell">03:00 PM</td>
+              <td class="table-cell">Tuesday</td>
+              <td class="table-cell">Saturday</td>
+              <td class="table-cell">
+                <button class="action-button edit" onclick="editShift(2)">Edit</button>
+                <button class="action-button delete" onclick="deleteShift(2)">Delete</button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+        <div class="table-actions">
+          <button class="conversion-button" onclick="showClearEmployeeShiftsModal()">Clear Employee Shifts</button>
+        </div>
+      </section>
+
+      <div id="shift-modal" class="modal" style="display:none;">
+        <div class="modal-content">
+          <h2>Edit Shift</h2>
+          <form id="shift-form">
+            <div class="form-group">
+              <label class="form-label" for="shift-start">Shift Start Time:</label>
+              <input type="text" id="shift-start" class="form-input" required tabindex="1">
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="shift-end">Shift End Time:</label>
+              <input type="text" id="shift-end" class="form-input" required tabindex="2">
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="shift-day-start">Day Start:</label>
+              <select id="shift-day-start" class="form-input" required tabindex="3">
+                <option value="Monday">Monday</option>
+                <option value="Tuesday">Tuesday</option>
+                <option value="Wednesday">Wednesday</option>
+                <option value="Thursday">Thursday</option>
+                <option value="Friday">Friday</option>
+                <option value="Saturday">Saturday</option>
+                <option value="Sunday">Sunday</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="shift-day-end">Day End:</label>
+              <select id="shift-day-end" class="form-input" required tabindex="4">
+                <option value="Monday">Monday</option>
+                <option value="Tuesday">Tuesday</option>
+                <option value="Wednesday">Wednesday</option>
+                <option value="Thursday">Thursday</option>
+                <option value="Friday">Friday</option>
+                <option value="Saturday">Saturday</option>
+                <option value="Sunday">Sunday</option>
+              </select>
+            </div>
+            <button type="button" class="conversion-button" onclick="saveShift()" tabindex="5">Confirm Edit</button>
+            <button type="button" class="conversion-button" onclick="closeModal('shift-modal')" tabindex="6">Cancel</button>
+          </form>
+        </div>
+      </div>
+
+      <!-- Active Present Attendance -->
+      <section class="content-section">
+        <div class="log-header">
+          <h2 class="section-title">Employee Present Attendance</h2>
+          <input type="text" class="search-bar" placeholder="Search attendance..." onkeyup="filterLogs(this, 'attendance-table')">
+        </div>
+        <table class="data-table" id="attendance-table">
+          <thead class="table-header">
+            <tr>
+              <th>Employee Name</th>
+              <th>ID Number</th>
+              <th>Check-in Time</th>
+              <th>Check-out Time</th>
+              <th>Status</th>
+              <th>Conducted By</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr class="table-row">
+              <td class="table-cell">John Doe</td>
+              <td class="table-cell">MNG-001</td>
+              <td class="table-cell">08:15 AM</td>
+              <td class="table-cell">-</td>
+              <td class="table-cell">Present</td>
+              <td class="table-cell">
+                <button class="action-button edit" onclick="editAttendance(0)">Edit</button>
+                <button class="action-button delete" onclick="deleteAttendance(0)">Delete</button>
+              </td>
+            </tr>
+            <tr class="table-row">
+              <td class="table-cell">Jane Smith</td>
+              <td class="table-cell">STF-001</td>
+              <td class="table-cell">09:05 AM</td>
+              <td class="table-cell">05:30 PM</td>
+              <td class="table-cell">Checked Out</td>
+              <td class="table-cell">
+                <button class="action-button edit" onclick="editAttendance(1)">Edit</button>
+                <button class="action-button delete" onclick="deleteAttendance(1)">Delete</button>
+              </td>
+            </tr>
+            <tr class="table-row">
+              <td class="table-cell">Bob Johnson</td>
+              <td class="table-cell">ADM-001</td>
+              <td class="table-cell">07:10 AM</td>
+              <td class="table-cell">-</td>
+              <td class="table-cell">Present</td>
+              <td class="table-cell">
+                <button class="action-button edit" onclick="editAttendance(2)">Edit</button>
+                <button class="action-button delete" onclick="deleteAttendance(2)">Delete</button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+        <div class="table-actions">
+          <button class="conversion-button" onclick="showClearPresentAttendanceModal()">Clear Present Attendance</button>
+        </div>
+      </section>
+
+      <div id="attendance-modal" class="modal" style="display:none;">
+        <div class="modal-content">
+          <h2>Edit Attendance</h2>
+          <form id="attendance-form">
+            <div class="form-group">
+              <label class="form-label" for="attendance-checkin">Check-in Time:</label>
+              <input type="text" id="attendance-checkin" class="form-input" required tabindex="1">
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="attendance-checkout">Check-out Time:</label>
+              <input type="text" id="attendance-checkout" class="form-input" tabindex="2">
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="attendance-status">Status:</label>
+              <select id="attendance-status" class="form-input" required tabindex="3">
+                <option value="Present">Present</option>
+                <option value="Checked Out">Checked Out</option>
+              </select>
+            </div>
+            <button type="button" class="conversion-button" onclick="saveAttendance()" tabindex="4">Confirm Edit</button>
+            <button type="button" class="conversion-button" onclick="closeModal('attendance-modal')" tabindex="5">Cancel</button>
+          </form>
+        </div>
+      </div>
+
+      <!-- Account Management -->
+      <section class="content-section">
+        <div class="log-header">
+          <h2 class="section-title">Employee Management</h2>
+          <input type="text" class="search-bar" placeholder="Search accounts..." onkeyup="filterLogs(this, 'accounts-table')">
+        </div>
+        <table class="data-table" id="accounts-table">
+          <thead class="table-header">
+            <tr>
+              <th>Employee ID</th>
+              <th>Username</th>
+              <th>Full Name</th>
+              <th>Privilege</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            <!-- Accounts will be populated here -->
+          </tbody>
+        </table>
+        <div class="table-actions">
+          <button class="conversion-button" onclick="toggleForm()">Add Account</button>
+          <button class="conversion-button" onclick="clearAllAccounts()">Clear All Accounts</button>
+        </div>
+        <div class="account-management" style="display: none;">
+          <div class="form-group">
+            <label class="form-label" for="new-username">Username</label>
+            <input type="text" id="new-username" class="form-input" placeholder="Enter username">
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="new-password">Password</label>
+            <input type="password" id="new-password" class="form-input" placeholder="Enter password">
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="new-fullname">Full Name</label>
+            <input type="text" id="new-fullname" class="form-input" placeholder="Enter full name">
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="new-privilege">Privilege Level</label>
+            <select id="new-privilege" class="form-input">
+              <option value="Admin">Admin</option>
+              <option value="Staff">Staff</option>
+              <option value="Manager">Manager</option>
+            </select>
+          </div>
+          <button type="button" class="login-button" onclick="submitAccount()">Submit</button>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <!-- Confirmation Modal for Clear Employee Log -->
+  <div id="clearEmployeeLogModal" class="modal" style="display:none;">
+    <div class="modal-content">
+      <h2>Confirm Clear</h2>
+      <p>Are you sure you want to clear the employee log?</p>
+      <div class="modal-buttons">
+        <button id="confirmClearEmployeeLog" onclick="confirmClearEmployeeLog()">OK</button>
+        <button id="cancelClearEmployeeLog" onclick="closeModal('clearEmployeeLogModal')">Cancel</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Confirmation Modal for Clear Employee Shifts -->
+  <div id="clearEmployeeShiftsModal" class="modal" style="display:none;">
+    <div class="modal-content">
+      <h2>Confirm Clear</h2>
+      <p>Are you sure you want to clear the employee shifts?</p>
+      <div class="modal-buttons">
+        <button id="confirmClearEmployeeShifts" onclick="confirmClearEmployeeShifts()">OK</button>
+        <button id="cancelClearEmployeeShifts" onclick="closeModal('clearEmployeeShiftsModal')">Cancel</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Confirmation Modal for Clear Present Attendance -->
+  <div id="clearPresentAttendanceModal" class="modal" style="display:none;">
+    <div class="modal-content">
+      <h2>Confirm Clear</h2>
+      <p>Are you sure you want to clear the present attendance?</p>
+      <div class="modal-buttons">
+        <button id="confirmClearPresentAttendance" onclick="confirmClearPresentAttendance()">OK</button>
+        <button id="cancelClearPresentAttendance" onclick="closeModal('clearPresentAttendanceModal')">Cancel</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="Employee.js"></script>
+</body>
+</html>

@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Monitoring - Cooking Oil Inventory System</title>
+  <link rel="stylesheet" href="Main.css">
+  <link rel="stylesheet" href="Monitoring.css">
+</head>
+<body>
+
+  <!-- Sidebar -->
+  <div class="flex h-screen">
+    <aside class="sidebar"> 
+      <div class="sidebar-header">
+        <h2 class="sidebar-title">Conversion Inventory<br>System</h2>
+        <button class="minimize-btn" onclick="toggleSidebar()"></button>
+        <div class="sidebar-user-info">
+          <div class="sidebar-profile-picture">
+            <img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxMDAiIGhlaWdodD0iMTAwIiB2aWV3Qm94PSIwIDAgMTAwIDEwMCI+CiAgPGNpcmNsZSBjeD0iNTAiIGN5PSIzNSIgcj0iMjAiIGZpbGw9IiNDNUNBRDUiLz4KICA8cGF0aCBkPSJNMTUgODVjMC0yNSAzNS0yNSAzNS0yNWgxMHM3LjEgMCAxNyA1YzEyLjUgNi4zIDE4IDIwIDE4IDIwSDE1eiIgZmlsbD0iI0M1Q0FENSIvPgo8L3N2Zz4=" alt="Profile Picture">
+          </div>
+          <p class="sidebar-welcome">Welcome, Guest</p>
+          <p class="sidebar-mode">Admin Mode</p>
+        </div>
+      </div>
+      <nav class="sidebar-nav">
+        <a href="Main.html" class="nav-item">Dashboard</a>
+        <a href="Inventory.html" class="nav-item">Inventory</a>
+        <a href="Monitoring.html" class="nav-item active">Monitoring</a>
+        <a href="Invoice.html" class="nav-item">Invoice</a>
+        <a href="Employee.html" class="nav-item">Employee</a>
+        <a href="Profile.html" class="nav-item">Profile Settings</a>
+      </nav>
+      <a href="#" class="nav-item logout-link" onclick="confirmLogout()">Log Out</a>
+    </aside>    <!-- Main Content -->
+    <main class="main-content">
+      <h1 class="page-title">Monitoring Management</h1>
+
+      <!-- Top Stats -->
+      <div class="stats-grid">
+        <div class="stat-card">
+          <p class="stat-label">Active Alerts</p>
+          <h2 class="stat-value">0</h2>
+        </div>
+        <div class="stat-card">
+          <p class="stat-label">Current Usage Rate</p>
+          <h2 class="stat-value">0%</h2>
+        </div>
+        <div class="stat-card">
+          <p class="stat-label">Avg Daily Consumption</p>
+          <h2 class="stat-value">0 kg</h2>
+        </div>
+        <div class="stat-card">
+          <p class="stat-label">Storage Temperature</p>
+          <h2 class="stat-value">0°C</h2>
+        </div>
+      </div>
+
+      <!-- Current Alerts -->
+      <section class="content-section">
+        <h2 class="section-title">Current Alerts</h2>
+        <div class="alerts-subsection">
+          <h3>Coconut Oil Alerts</h3>
+          <div class="alerts-container" id="coconut-alerts">
+            <!-- Coconut Oil alerts will be populated by JavaScript -->
+          </div>
+        </div>
+        <div class="alerts-subsection">
+          <h3>Palm Oil Alerts</h3>
+          <div class="alerts-container" id="palm-alerts">
+            <!-- Palm Oil alerts will be populated by JavaScript -->
+          </div>
+        </div>
+      </section>
+
+      <!-- Usage Trends -->
+      <section class="content-section">
+        <div class="log-header">
+          <h2 class="section-title">Usage Trends</h2>
+          <input type="text" class="search-bar" placeholder="Search trends..." onkeyup="filterLogs(this, 'usage-trends')">
+        </div>
+        <table class="data-table" id="usage-trends">
+          <thead class="table-header">
+            <tr>
+              <th>Date</th>
+              <th>Oil Type</th>
+              <th>Consumption (kg)</th>
+              <th>Trend</th>
+              <th>Notes</th>
+              <th>Conducted By</th>
+            </tr>
+          </thead>
+          <tbody>
+            <!-- Table rows will be populated by JavaScript -->
+          </tbody>
+        </table>
+        <div class="table-actions">
+          <button class="conversion-button" onclick="openUsageTrendReportForm()">Report Usage Trends</button>
+          <button class="conversion-button" onclick="showClearLogsModal()">Clear Logs</button>
+        </div>
+        <div id="usage-trend-report-form" class="monitoring-form" style="display: none;">
+          <h3>Report Usage Trends</h3>
+          <div id="usage-trend-form-fields">
+            <label for="trend-oil-type">Oil Type:</label>
+            <select id="trend-oil-type" class="conversion-input">
+              <option value="Coconut Oil">Coconut Oil</option>
+              <option value="Palm Oil">Palm Oil</option>
+            </select>
+            <label for="trend-consumption">Consumption (kg):</label>
+            <input type="number" id="trend-consumption" class="conversion-input" placeholder="e.g., 120" step="0.01" min="0" required>
+            <label for="trend-type">Trend:</label>
+            <select id="trend-type" class="conversion-input">
+              <option value="Increasing">Increasing</option>
+              <option value="Stable">Stable</option>
+              <option value="Decreasing">Decreasing</option>
+            </select>
+            <label for="trend-notes">Notes:</label>
+            <input type="text" id="trend-notes" class="conversion-input" placeholder="Optional notes">
+          </div>
+          <button class="conversion-button" onclick="submitUsageTrendReport()">Submit Report</button>
+          <button class="conversion-button" onclick="closeUsageTrendReportForm()">Cancel</button>
+        </div>
+        <div id="usage-trend-report-result" class="conversion-result"></div>
+      </section>
+
+      <!-- Storage Monitoring -->
+      <section class="content-section">
+        <div class="log-header">
+          <h2 class="section-title">Storage Monitoring</h2>
+          <input type="text" class="search-bar" placeholder="Search monitoring..." onkeyup="filterLogs(this, 'storage-monitoring')">
+        </div>
+        <table class="data-table" id="storage-monitoring">
+          <thead class="table-header">
+            <tr>
+              <th>Date</th>
+              <th>Tank ID</th>
+              <th>Oil Type</th>
+              <th>Current Level (%)</th>
+              <th>Temperature (°C)</th>
+              <th>Status</th>
+              <th>Conducted By</th>
+            </tr>
+          </thead>
+          <tbody>
+            <!-- Table rows will be populated by JavaScript -->
+          </tbody>
+        </table>
+        <div class="table-actions">
+          <button class="conversion-button" onclick="openStockReportForm()">Report Current Stock Levels</button>
+          <button class="conversion-button" onclick="showClearModal()">Clear Stock Reports</button>
+        </div>
+        <div id="stock-report-form" class="monitoring-form" style="display: none;">
+          <h3>Report Stock Levels</h3>
+          <div id="stock-form-fields">
+            <!-- Form fields will be populated by JavaScript -->
+          </div>
+          <button class="conversion-button" onclick="submitStockReport()">Submit Report</button>
+          <button class="conversion-button" onclick="closeStockReportForm()">Cancel</button>
+        </div>
+        <div id="stock-report-result" class="conversion-result"></div>
+      </section>
+
+      <!-- Monitoring -->
+      <section class="monitoring-section">
+        <h2 class="section-title">Submission Monitoring</h2>
+        <div class="monitoring-form">
+          <label for="monitoring-type">Monitoring Type:</label>
+          <select id="monitoring-type" class="conversion-input">
+            <option value="Usage">Usage Monitoring</option>
+            <option value="Temperature">Temperature Monitoring</option>
+            <option value="Stock">Stock Monitoring</option>
+          </select>
+          <label for="oil-type">Oil Type:</label>
+          <select id="oil-type" class="conversion-input">
+            <option value="coconut">Coconut Oil</option>
+            <option value="palm">Palm Oil</option>
+          </select>
+          <label for="transaction-type">Transaction Type:</label>
+          <select id="transaction-type" class="conversion-input">
+            <option value="Stock In">Stock In</option>
+            <option value="Stock Out">Stock Out</option>
+          </select>
+          <label for="monitoring-date">Date:</label>
+          <input type="date" id="monitoring-date" class="conversion-input" required>
+          <label for="quantity">Quantity (kg):</label>
+          <input type="number" id="quantity" class="conversion-input" placeholder="e.g., 500" step="0.01" min="0" required>
+          <label for="notes">Notes:</label>
+          <input type="text" id="notes" class="conversion-input" placeholder="Optional notes">
+          <button class="conversion-button" onclick="submitMonitoring()">Submit Monitoring</button>
+        </div>
+        <div id="monitoring-result" class="conversion-result"></div>
+      </section>
+    </main>
+  </div>
+
+  <!-- Confirmation Modal for Clear Stock Reports -->
+  <div id="clearModal" class="modal" style="display:none;">
+    <div class="modal-content">
+      <h2>Confirm Clear</h2>
+      <p>Are you sure you want to clear the stock reports?</p>
+      <div class="modal-buttons">
+        <button onclick="confirmClearStockReports()">OK</button>
+        <button onclick="closeModal('clearModal')">Cancel</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Confirmation Modal for Clear Logs -->
+  <div id="clearLogsModal" class="modal" style="display:none;">
+    <div class="modal-content">
+      <h2>Confirm Clear</h2>
+      <p>Are you sure you want to clear the logs?</p>
+      <div class="modal-buttons">
+        <button onclick="confirmClearLogs()">OK</button>
+        <button onclick="closeModal('clearLogsModal')">Cancel</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="Monitoring.js"></script>
+</body>
+</html>

@@ -1,0 +1,364 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Inventory - Cooking Oil Inventory System</title>
+  <link rel="stylesheet" href="Main.css">
+  <link rel="stylesheet" href="Inventory.css">
+</head>
+<body>
+  <div class="flex h-screen">
+    <!-- Sidebar -->
+    <aside class="sidebar">
+      <div class="sidebar-header">
+        <h2 class="sidebar-title">Conversion Inventory<br>System</h2>
+        <button class="minimize-btn" onclick="toggleSidebar()"></button>
+        <div class="sidebar-user-info">
+          <div class="sidebar-profile-picture">
+            <img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxMDAiIGhlaWdodD0iMTAwIiB2aWV3Qm94PSIwIDAgMTAwIDEwMCI+CiAgPGNpcmNsZSBjeD0iNTAiIGN5PSIzNSIgcj0iMjAiIGZpbGw9IiNDNUNBRDUiLz4KICA8cGF0aCBkPSJNMTUgODVjMC0yNSAzNS0yNSAzNS0yNWgxMHM3LjEgMCAxNyA1YzEyLjUgNi4zIDE4IDIwIDE4IDIwSDE1eiIgZmlsbD0iI0M1Q0FENSIvPgo8L3N2Zz4=" alt="Profile Picture">
+          </div>
+          <p class="sidebar-welcome">Welcome, Guest</p>
+          <p class="sidebar-mode">Admin Mode</p>
+        </div>
+      </div>
+      <nav class="sidebar-nav">
+        <a href="Main.html" class="nav-item">Dashboard</a>
+        <a href="Inventory.html" class="nav-item active">Inventory</a>
+        <a href="Monitoring.html" class="nav-item">Monitoring</a>
+        <a href="Invoice.html" class="nav-item">Invoice</a>
+        <a href="Employee.html" class="nav-item">Employee</a>
+        <a href="Profile.html" class="nav-item">Profile Settings</a>
+      </nav>
+      <a href="#" class="nav-item logout-link" onclick="confirmLogout()">Log Out</a>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="main-content">
+      <h1 class="page-title">Inventory Management</h1>
+
+      <!-- Inventory Summary -->
+      <div class="stats-grid">
+        <div class="stat-card">
+          <p class="stat-label">Total Stock Value</p>
+          <h2 class="stat-value">₱225,000</h2>
+        </div>
+        <div class="stat-card">
+          <p class="stat-label">Low Stock Items</p>
+          <h2 class="stat-value">2</h2>
+        </div>
+        <div class="stat-card">
+          <p class="stat-label">Total Items</p>
+          <h2 class="stat-value">3</h2>
+        </div>
+        <div class="stat-card">
+          <p class="stat-label">Storage Usage</p>
+          <h2 class="stat-value">45%</h2>
+        </div>
+      </div>
+
+      <!-- Current Inventory -->
+      <section class="content-section">
+        <div class="log-header">
+          <h2 class="section-title">Current Inventory</h2>
+          <input type="text" class="search-bar" placeholder="Search inventory..." onkeyup="filterLogs(this, 'current-inventory')">
+        </div>
+        <table class="data-table" id="current-inventory">
+          <thead class="table-header">
+            <tr>
+              <th>Oil Type</th>
+              <th>Current Stock (kg)</th>
+              <th>Minimum Level</th>
+              <th>Maximum Capacity</th>
+              <th>Unit Price (₱)</th>
+              <th>Status</th>
+              <th>Conducted By</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr class="table-row">
+              <td class="table-cell">Coconut Oil</td>
+              <td class="table-cell">300</td>
+              <td class="table-cell">400</td>
+              <td class="table-cell">3,000</td>
+              <td class="table-cell">65</td>
+              <td class="table-cell">Low Stock</td>
+              <td class="table-cell">Admin</td>
+            </tr>
+            <tr class="table-row">
+              <td class="table-cell">Palm Oil</td>
+              <td class="table-cell">1,700</td>
+              <td class="table-cell">600</td>
+              <td class="table-cell">3,000</td>
+              <td class="table-cell">45</td>
+              <td class="table-cell">Normal</td>
+              <td class="table-cell">Admin</td>
+            </tr>
+          </tbody>
+        </table>
+        <div class="table-actions">
+          <button type="button" class="primary-button" onclick="clearCurrentInventory()">Clear Log</button>
+        </div>
+      </section>
+
+      <!-- Stock Movement History -->
+      <section class="content-section">
+        <div class="log-header">
+          <h2 class="section-title">Stock Movement History</h2>
+          <input type="text" class="search-bar" placeholder="Search history..." onkeyup="filterLogs(this, 'stock-movement')">
+        </div>
+        <table class="data-table" id="stock-movement">
+          <thead class="table-header">
+            <tr>
+              <th>Date</th>
+              <th>Oil Type</th>
+              <th>Transaction Type</th>
+              <th>Quantity (kg)</th>
+              <th>Reference No.</th>
+              <th>Conducted By</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr class="table-row">
+              <td class="table-cell">2025-10-11</td>
+              <td class="table-cell">Coconut Oil</td>
+              <td class="table-cell">Stock In</td>
+              <td class="table-cell">500</td>
+              <td class="table-cell">SI-2025101</td>
+              <td class="table-cell">John Smith</td>
+            </tr>
+            <tr class="table-row">
+              <td class="table-cell">2025-10-10</td>
+              <td class="table-cell">Palm Oil</td>
+              <td class="table-cell">Stock Out</td>
+              <td class="table-cell">200</td>
+              <td class="table-cell">SO-2025100</td>
+              <td class="table-cell">Maria Garcia</td>
+            </tr>
+          </tbody>
+        </table>
+        <div class="table-actions">
+          <button type="button" class="primary-button" onclick="clearStockMovementHistory()">Clear Log</button>
+        </div>
+      </section>
+
+      <!-- Unit Conversion -->
+      <section class="conversion-section">
+        <h2 class="conversion-title">Unit Conversion</h2>
+        <div class="conversion-form">
+          <div class="conversion-option">
+            <h3>Direct Conversion (Consumption)</h3>
+            <label for="tons-input">Enter quantity in tons:</label>
+            <input type="number" id="tons-input" class="conversion-input" placeholder="e.g., 1" step="0.01">
+            <button class="conversion-button" onclick="convertTonsToKg()">Convert Tons to kg</button>
+            <div id="direct-result" class="conversion-result"></div>
+            <div class="log-header">
+              <h4 class="section-title">Conversion Log History</h4>
+              <input type="text" class="search-bar" placeholder="Search logs..." onkeyup="filterLogs(this, 'direct-conversion-logs')">
+            </div>
+            <div class="logs-container">
+              <table class="data-table" id="direct-conversion-logs">
+                <thead class="table-header">
+                  <tr>
+                    <th>Date</th>
+                    <th>Tons</th>
+                    <th>Kilograms</th>
+                    <th>Conducted By</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr class="table-row">
+                    <td class="table-cell">2025-10-15</td>
+                    <td class="table-cell">1.5</td>
+                    <td class="table-cell">1500</td>
+                    <td class="table-cell">Admin</td>
+                  </tr>
+                  <tr class="table-row">
+                    <td class="table-cell">2025-10-14</td>
+                    <td class="table-cell">2.0</td>
+                    <td class="table-cell">2000</td>
+                    <td class="table-cell">John Smith</td>
+                  </tr>
+                  <tr class="table-row">
+                    <td class="table-cell">2025-10-13</td>
+                    <td class="table-cell">0.8</td>
+                    <td class="table-cell">800</td>
+                    <td class="table-cell">Maria Garcia</td>
+                  </tr>
+                  <tr class="table-row">
+                    <td class="table-cell">2025-10-12</td>
+                    <td class="table-cell">3.2</td>
+                    <td class="table-cell">3200</td>
+                    <td class="table-cell">Admin</td>
+                  </tr>
+                  <tr class="table-row">
+                    <td class="table-cell">2025-10-11</td>
+                    <td class="table-cell">1.0</td>
+                    <td class="table-cell">1000</td>
+                    <td class="table-cell">John Smith</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <div class="table-actions">
+              <button class="conversion-button" onclick="clearDirectConversionLogs()">Clear Logs</button>
+            </div>
+          </div>
+          <div class="conversion-option">
+            <h3>Refillable Conversion (kg to Bottles)</h3>
+            <label for="kg-input">Enter quantity in kg:</label>
+            <input type="number" id="kg-input" class="conversion-input" placeholder="e.g., 100" step="0.01">
+            <button class="conversion-button" onclick="convertKgToBottles()">Calculate Bottles</button>
+            <h3>Bottles to kg Conversion</h3>
+            <label for="bottles-1l">Number of 1 liter bottles:</label>
+            <input type="number" id="bottles-1l" class="conversion-input" placeholder="e.g., 10" min="0">
+            <label for="bottles-1.5l">Number of 1.5 liter bottles:</label>
+            <input type="number" id="bottles-1.5l" class="conversion-input" placeholder="e.g., 5" min="0">
+            <label for="bottles-350ml">Number of 350ml bottles:</label>
+            <input type="number" id="bottles-350ml" class="conversion-input" placeholder="e.g., 20" min="0">
+            <button class="conversion-button" onclick="convertBottlesToKg()">Calculate Total kg</button>
+            <div id="refillable-result" class="conversion-result"></div>
+            <div class="log-header">
+              <h4 class="section-title">Conversion Log History</h4>
+              <input type="text" class="search-bar" placeholder="Search logs..." onkeyup="filterLogs(this, 'refillable-conversion-logs')">
+            </div>
+            <div class="logs-container">
+              <table class="data-table" id="refillable-conversion-logs">
+                <thead class="table-header">
+                  <tr>
+                    <th>Date</th>
+                    <th>Input</th>
+                    <th>Output</th>
+                    <th>Conducted By</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr class="table-row">
+                    <td class="table-cell">2025-10-15</td>
+                    <td class="table-cell">100 kg</td>
+                    <td class="table-cell">10 bottles</td>
+                    <td class="table-cell">Admin</td>
+                  </tr>
+                  <tr class="table-row">
+                    <td class="table-cell">2025-10-14</td>
+                    <td class="table-cell">150 kg</td>
+                    <td class="table-cell">15 bottles</td>
+                    <td class="table-cell">John Smith</td>
+                  </tr>
+                  <tr class="table-row">
+                    <td class="table-cell">2025-10-13</td>
+                    <td class="table-cell">80 kg</td>
+                    <td class="table-cell">8 bottles</td>
+                    <td class="table-cell">Maria Garcia</td>
+                  </tr>
+                  <tr class="table-row">
+                    <td class="table-cell">2025-10-12</td>
+                    <td class="table-cell">200 kg</td>
+                    <td class="table-cell">20 bottles</td>
+                    <td class="table-cell">Admin</td>
+                  </tr>
+                  <tr class="table-row">
+                    <td class="table-cell">2025-10-11</td>
+                    <td class="table-cell">50 kg</td>
+                    <td class="table-cell">5 bottles</td>
+                    <td class="table-cell">John Smith</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <div class="table-actions">
+              <button class="conversion-button" onclick="clearRefillableConversionLogs()">Clear Logs</button>
+            </div>
+          </div>
+          <div class="conversion-option">
+            <h3>Storage Level Conversion</h3>
+            <label for="capacity-input">Tank Capacity (tons):</label>
+            <input type="number" id="capacity-input" class="conversion-input" placeholder="e.g., 5" step="0.01">
+            <label for="level-input">Current Level (%):</label>
+            <input type="number" id="level-input" class="conversion-input" placeholder="e.g., 62.5" step="0.01" min="0" max="100">
+            <button class="conversion-button" onclick="convertStorageToKg()">Convert to Tons and kg</button>
+            <div id="storage-result" class="conversion-result"></div>
+            <div class="log-header">
+              <h4 class="section-title">Conversion Log History</h4>
+              <input type="text" class="search-bar" placeholder="Search logs..." onkeyup="filterLogs(this, 'storage-conversion-logs')">
+            </div>
+            <div class="logs-container">
+              <table class="data-table" id="storage-conversion-logs">
+                <thead class="table-header">
+                  <tr>
+                    <th>Date</th>
+                    <th>Capacity (tons)</th>
+                    <th>Level (%)</th>
+                    <th>Current kg</th>
+                    <th>Tons</th>
+                    <th>Conducted By</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr class="table-row">
+                    <td class="table-cell">2025-10-15</td>
+                    <td class="table-cell">5.0</td>
+                    <td class="table-cell">62.5</td>
+                    <td class="table-cell">3125</td>
+                    <td class="table-cell">3.125</td>
+                    <td class="table-cell">Admin</td>
+                  </tr>
+                  <tr class="table-row">
+                    <td class="table-cell">2025-10-14</td>
+                    <td class="table-cell">4.0</td>
+                    <td class="table-cell">75.0</td>
+                    <td class="table-cell">3000</td>
+                    <td class="table-cell">3.0</td>
+                    <td class="table-cell">John Smith</td>
+                  </tr>
+                  <tr class="table-row">
+                    <td class="table-cell">2025-10-13</td>
+                    <td class="table-cell">6.0</td>
+                    <td class="table-cell">50.0</td>
+                    <td class="table-cell">3000</td>
+                    <td class="table-cell">3.0</td>
+                    <td class="table-cell">Maria Garcia</td>
+                  </tr>
+                  <tr class="table-row">
+                    <td class="table-cell">2025-10-12</td>
+                    <td class="table-cell">3.0</td>
+                    <td class="table-cell">80.0</td>
+                    <td class="table-cell">2400</td>
+                    <td class="table-cell">2.4</td>
+                    <td class="table-cell">Admin</td>
+                  </tr>
+                  <tr class="table-row">
+                    <td class="table-cell">2025-10-11</td>
+                    <td class="table-cell">7.0</td>
+                    <td class="table-cell">40.0</td>
+                    <td class="table-cell">2800</td>
+                    <td class="table-cell">2.8</td>
+                    <td class="table-cell">John Smith</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <div class="table-actions">
+              <button class="conversion-button" onclick="clearStorageConversionLogs()">Clear Logs</button>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <!-- Confirmation Modal -->
+  <div id="clearModal" class="modal" style="display:none;">
+    <div class="modal-content">
+      <h2>Confirm Clear</h2>
+      <p>Are you sure you want to clear the logs?</p>
+      <div class="modal-buttons">
+        <button id="confirmClear">OK</button>
+        <button id="cancelClear">Cancel</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="Inventory.js"></script>
+</body>
+</html>

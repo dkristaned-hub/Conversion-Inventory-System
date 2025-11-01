@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Profile settings page for Cooking Oil Inventory System - Manage your account, password, and view activity logs">
+  <meta name="theme-color" content="#2563EB">
+  <title>Profile Settings - Cooking Oil Inventory System</title>
+  <link rel="stylesheet" href="Main.css">
+  <link rel="stylesheet" href="profile.css">
+</head>
+<body>
+  <div class="flex h-screen">
+    <!-- Sidebar -->
+    <aside class="sidebar">
+      <div class="sidebar-header">
+        <h2 class="sidebar-title">Conversion Inventory<br>System</h2>
+        <button class="minimize-btn" onclick="toggleSidebar()"></button>
+        <div class="sidebar-user-info">
+          <div class="sidebar-profile-picture">
+            <img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxMDAiIGhlaWdodD0iMTAwIiB2aWV3Qm94PSIwIDAgMTAwIDEwMCI+CiAgPGNpcmNsZSBjeD0iNTAiIGN5PSIzNSIgcj0iMjAiIGZpbGw9IiNDNUNBRDUiLz4KICA8cGF0aCBkPSJNMTUgODVjMC0yNSAzNS0yNSAzNS0yNWgxMHM3LjEgMCAxNyA1YzEyLjUgNi4zIDE4IDIwIDE4IDIwSDE1eiIgZmlsbD0iI0M1Q0FENSIvPgo8L3N2Zz4=" alt="Profile Picture">
+          </div>
+          <p class="sidebar-welcome">Welcome, Guest</p>
+          <p class="sidebar-mode">Admin Mode</p>
+        </div>
+      </div>
+      <nav class="sidebar-nav">
+        <a href="Main.html" class="nav-item">Dashboard</a>
+        <a href="Inventory.html" class="nav-item">Inventory</a>
+        <a href="Monitoring.html" class="nav-item">Monitoring</a>
+        <a href="Invoice.html" class="nav-item">Invoice</a>
+        <a href="Employee.html" class="nav-item">Employee</a>
+        <a href="Profile.html" class="nav-item active">Profile Settings</a>
+      </nav>
+      <a href="#" class="nav-item logout-link" onclick="confirmLogout()">Log Out</a>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="main-content">
+      <h1 class="page-title">Profile Settings</h1>
+
+      <!-- Profile Picture -->
+      <section class="content-section profile-picture-section">
+        <h2 class="section-title">Profile Picture</h2>
+        <div class="profile-picture-container">
+          <div class="profile-picture">
+            <img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxMDAiIGhlaWdodD0iMTAwIiB2aWV3Qm94PSIwIDAgMTAwIDEwMCI+CiAgPGNpcmNsZSBjeD0iNTAiIGN5PSIzNSIgcj0iMjAiIGZpbGw9IiNDNUNBRDUiLz4KICA8cGF0aCBkPSJNMTUgODVjMC0yNSAzNS0yNSAzNS0yNWgxMHM3LjEgMCAxNyA1YzEyLjUgNi4zIDE4IDIwIDE4IDIwSDE1eiIgZmlsbD0iI0M1Q0FENSIvPgo8L3N2Zz4=" alt="Profile Picture" id="profileImage">
+          </div>
+          <button class="primary-button" onclick="document.getElementById('profilePictureInput').click()">Change Profile Picture</button>
+          <input type="file" id="profilePictureInput" accept="image/*" style="display: none;">
+        </div>
+      </section>
+
+      <!-- Account Information -->
+      <section class="content-section">
+        <h2 class="section-title">Account Information</h2>
+        <div class="profile-form">
+          <!-- Basic Information -->
+          <div class="form-group">
+            <label class="form-label">Username</label>
+            <input type="text" class="form-input" id="username" readonly placeholder="Username">
+          </div>
+          <div class="form-group">
+            <label class="form-label">Full Name</label>
+            <input type="text" class="form-input" id="fullName" placeholder="Enter your full name">
+          </div>
+          <div class="form-group">
+            <label class="form-label">Account Privilege</label>
+            <select class="form-input">
+              <option value="admin">Admin</option>
+              <option value="manager">Manager</option>
+              <option value="staff">Staff</option>
+              <option value="guest">Guest</option>
+            </select>
+          </div>
+        </div>
+      </section>
+      
+      <!-- Password Management -->
+      <section class="content-section">
+        <h2 class="section-title">Password Management</h2>
+        <div class="profile-form">
+          <div class="form-group">
+            <label class="form-label">Current Password</label>
+            <input type="password" class="form-input" id="currentPassword" placeholder="Enter current password">
+          </div>
+          <div class="form-group">
+            <label class="form-label">New Password</label>
+            <input type="password" class="form-input" id="newPassword" placeholder="Enter new password">
+          </div>
+          <div class="form-group">
+            <label class="form-label">Confirm New Password</label>
+            <input type="password" class="form-input" id="confirmPassword" placeholder="Confirm new password">
+          </div>
+          <div class="form-group" style="text-align: center;">
+            <button class="primary-button" id="changePasswordBtn">Change Password</button>
+          </div>
+        </div>
+      </section>
+
+      <!-- Activity Logs History -->
+      <section class="content-section" aria-labelledby="activity-logs-title">
+        <h2 id="activity-logs-title" class="section-title">Activity Logs History</h2>
+        <div class="logs-container">
+          <table class="data-table" id="activity-logs" aria-label="User Activity Logs">
+            <thead class="table-header">
+              <tr>
+                <th scope="col">Date</th>
+                <th scope="col">Activity</th>
+                <th scope="col">Details</th>
+              </tr>
+            </thead>
+            <tbody>
+              <!-- Logs will be populated by JavaScript -->
+            </tbody>
+          </table>
+        </div>
+        <div class="table-actions">
+          <button type="button" class="button button--primary" aria-label="Clear all activity logs" onclick="clearActivityLogs()">Clear Logs</button>
+        </div>
+      </section>
+
+      <!-- Save Button -->
+      <div class="button-container">
+        <button type="button" class="button button--primary" aria-label="Save profile changes">Save Changes</button>
+      </div>
+    </main>
+  </div>
+
+  <!-- Password Verification Modal -->
+  <div id="passwordModal" class="modal">
+    <div class="modal-content">
+      <h3>Verify Password</h3>
+      <p>Please enter your password to save changes</p>
+      <input type="password" id="verifyPassword" placeholder="Enter your current password">
+      <div class="modal-buttons">
+        <button id="confirmSave" class="primary-button">Confirm</button>
+        <button id="cancelSave" class="secondary-button">Cancel</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Clear Logs Verification Modal -->
+  <div id="clearLogsModal" class="modal">
+    <div class="modal-content">
+      <h3>Confirm Clear</h3>
+      <p>Are you sure you want to clear all History logs?</p>
+      <div class="modal-buttons">
+        <button id="confirmClear" class="primary-button">Clear Logs</button>
+        <button id="cancelClear" class="secondary-button">Cancel</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="Profile.js"></script>
+</body>
+</html>

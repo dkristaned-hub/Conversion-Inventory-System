@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Invoice - Cooking Oil Inventory System</title>
+  <link rel="stylesheet" href="Main.css">
+  <link rel="stylesheet" href="Invoice.css">
+</head>
+<body>
+
+  <!-- Sidebar -->
+  <div class="flex h-screen">
+    <aside class="sidebar"> 
+      <div class="sidebar-header">
+        <h2 class="sidebar-title">Conversion Inventory<br>System</h2>
+        <button class="minimize-btn" onclick="toggleSidebar()"></button>
+        <div class="sidebar-user-info">
+          <div class="sidebar-profile-picture">
+            <img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxMDAiIGhlaWdodD0iMTAwIiB2aWV3Qm94PSIwIDAgMTAwIDEwMCI+CiAgPGNpcmNsZSBjeD0iNTAiIGN5PSIzNSIgcj0iMjAiIGZpbGw9IiNDNUNBRDUiLz4KICA8cGF0aCBkPSJNMTUgODVjMC0yNSAzNS0yNSAzNS0yNWgxMHM3LjEgMCAxNyA1YzEyLjUgNi4zIDE4IDIwIDE4IDIwSDE1eiIgZmlsbD0iI0M1Q0FENSIvPgo8L3N2Zz4=" alt="Profile Picture">
+          </div>
+          <p class="sidebar-welcome">Welcome, Guest</p>
+          <p class="sidebar-mode">Admin Mode</p>
+        </div>
+      </div>
+      <nav class="sidebar-nav">
+        <a href="Main.html" class="nav-item">Dashboard</a>
+        <a href="Inventory.html" class="nav-item">Inventory</a>
+        <a href="Monitoring.html" class="nav-item">Monitoring</a>
+        <a href="Invoice.html" class="nav-item active">Invoice</a>
+        <a href="Employee.html" class="nav-item">Employee</a>
+        <a href="Profile.html" class="nav-item">Profile Settings</a>
+      </nav>
+      <a href="#" class="nav-item logout-link" onclick="confirmLogout()">Log Out</a>
+    </aside>    <!-- Main Content -->
+    <main class="main-content">
+      <h1 class="page-title">Invoice Management</h1>
+
+      <!-- Top Stats -->
+      <div class="stats-grid">
+        <div class="stat-card">
+          <p class="stat-label">Total Invoices</p>
+          <h2 class="stat-value">15</h2>
+        </div>
+        <div class="stat-card">
+          <p class="stat-label">Pending Payments</p>
+          <h2 class="stat-value">₱45,000</h2>
+        </div>
+        <div class="stat-card">
+          <p class="stat-label">Overdue Invoices</p>
+          <h2 class="stat-value">3</h2>
+        </div>
+        <div class="stat-card">
+          <p class="stat-label">Total Revenue</p>
+          <h2 class="stat-value">₱225,000</h2>
+        </div>
+      </div>
+
+      <!-- Pending Invoices -->
+      <section class="content-section">
+        <div class="log-header">
+          <h2 class="section-title">Pending Invoices</h2>
+          <input type="text" class="search-bar" placeholder="Search pending..." onkeyup="filterLogs(this, 'pending-invoices')">
+        </div>
+        <table class="data-table" id="pending-invoices">
+          <thead class="table-header">
+            <tr>
+              <th>Invoice ID</th>
+              <th>Date and Time</th>
+              <th>Supplier/Customer</th>
+              <th>Amount (₱)</th>
+              <th>Due Date</th>
+              <th>Status</th>
+              <th>Conducted By</th>
+            </tr>
+          </thead>
+          <tbody>
+            <!-- Table rows will be populated by JavaScript -->
+          </tbody>
+        </table>
+        <div class="table-actions">
+          <button class="primary-button" onclick="showClearPendingModal()">Clear Pending Invoices</button>
+        </div>
+      </section>
+
+      <!-- Sales -->
+      <section class="content-section">
+        <div class="log-header">
+          <h2 class="section-title">Sales Invoices</h2>
+          <input type="text" class="search-bar" placeholder="Search sales..." onkeyup="filterLogs(this, 'sales-table')">
+        </div>
+        <table class="data-table" id="sales-table">
+          <thead class="table-header">
+            <tr>
+              <th>Invoice ID</th>
+              <th>Date and Time</th>
+              <th>Customer</th>
+              <th>Amount (₱)</th>
+              <th>Status</th>
+              <th>Conducted By</th>
+            </tr>
+          </thead>
+          <tbody>
+            <!-- Table rows will be populated by JavaScript -->
+          </tbody>
+        </table>
+        <div class="table-actions">
+          <button class="primary-button" onclick="showClearSalesModal()">Clear Sales Invoices</button>
+        </div>
+      </section>
+
+      <!-- Delivery -->
+      <section class="content-section">
+        <div class="log-header">
+          <h2 class="section-title">Delivery Invoices</h2>
+          <input type="text" class="search-bar" placeholder="Search delivery..." onkeyup="filterLogs(this, 'delivery-table')">
+        </div>
+        <table class="data-table" id="delivery-table">
+          <thead class="table-header">
+            <tr>
+              <th>Invoice ID</th>
+              <th>Date and Time</th>
+              <th>Supplier</th>
+              <th>Amount (₱)</th>
+              <th>Status</th>
+              <th>Conducted By</th>
+            </tr>
+          </thead>
+          <tbody>
+            <!-- Table rows will be populated by JavaScript -->
+          </tbody>
+        </table>
+        <div class="table-actions">
+          <button class="primary-button" onclick="showClearDeliveryModal()">Clear Delivery Invoices</button>
+        </div>
+      </section>
+
+      <!-- Invoice History -->
+      <section class="content-section">
+        <div class="log-header">
+          <h2 class="section-title">Invoices History</h2>
+          <input type="text" class="search-bar" placeholder="Search history..." onkeyup="filterLogs(this, 'invoice-history')">
+        </div>
+        <table class="data-table" id="invoice-history">
+          <thead class="table-header">
+            <tr>
+              <th>Invoice ID</th>
+              <th>Date and Time</th>
+              <th>Supplier/Customer</th>
+              <th>Amount (₱)</th>
+              <th>Payment Date</th>
+              <th>Status</th>
+              <th>Conducted By</th>
+            </tr>
+          </thead>
+          <tbody>
+            <!-- Table rows will be populated by JavaScript -->
+          </tbody>
+        </table>
+        <div class="table-actions">
+          <button class="primary-button" onclick="showClearHistoryModal()">Clear Invoice History</button>
+        </div>
+      </section>
+
+      <!-- Invoice Submission -->
+      <section class="content-section">
+        <h2 class="section-title">Invoice Submission</h2>
+        <div class="invoice-form-container">
+          <form class="invoice-form" id="invoiceForm">
+            <div class="form-row">
+              <div class="form-group">
+                <label class="form-label">Invoice ID</label>
+                <input type="text" class="form-input" id="invoiceId" placeholder="e.g., INV-2025103" required>
+              </div>
+            </div>
+            <div class="form-row">
+              <div class="form-group">
+                <label class="form-label">Supplier/Customer</label>
+                <input type="text" class="form-input" id="supplier" placeholder="Enter supplier or customer name" required>
+              </div>
+              <div class="form-group">
+                <label class="form-label">Amount (₱)</label>
+                <input type="number" class="form-input" id="amount" placeholder="0.00" step="0.01" required>
+              </div>
+            </div>
+            <div class="form-row">
+              <div class="form-group">
+                <label class="form-label">Due Date</label>
+                <input type="date" class="form-input" id="dueDate" required>
+              </div>
+              <div class="form-group">
+                <label class="form-label">Status</label>
+                <select class="form-input" id="status" required>
+                  <option value="Pending">Pending</option>
+                  <option value="Paid">Paid</option>
+                  <option value="Overdue">Overdue</option>
+                </select>
+              </div>
+            </div>
+            <div class="form-row">
+              <div class="form-group">
+                <label class="form-label">Invoice Type</label>
+                <select class="form-input" id="invoiceType" required>
+                  <option value="Delivery">Delivery</option>
+                  <option value="Sale">Sale</option>
+                </select>
+              </div>
+            </div>
+            <div class="form-actions">
+              <button type="submit" class="primary-button">Submit Invoice</button>
+              <button type="button" class="primary-button" onclick="clearForm()">Clear</button>
+            </div>
+          </form>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <!-- Confirmation Modal for Clear Pending Invoices -->
+  <div id="clearPendingModal" class="modal" style="display:none;">
+    <div class="modal-content">
+      <h2>Confirm Clear</h2>
+      <p>Are you sure you want to clear the pending invoices?</p>
+      <div class="modal-buttons">
+        <button id="confirmClearPending" onclick="confirmClearPending()">OK</button>
+        <button id="cancelClearPending" onclick="closeModal('clearPendingModal')">Cancel</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Confirmation Modal for Clear Sales Invoices -->
+  <div id="clearSalesModal" class="modal" style="display:none;">
+    <div class="modal-content">
+      <h2>Confirm Clear</h2>
+      <p>Are you sure you want to clear the sales invoices?</p>
+      <div class="modal-buttons">
+        <button id="confirmClearSales" onclick="confirmClearSales()">OK</button>
+        <button id="cancelClearSales" onclick="closeModal('clearSalesModal')">Cancel</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Confirmation Modal for Clear Delivery Invoices -->
+  <div id="clearDeliveryModal" class="modal" style="display:none;">
+    <div class="modal-content">
+      <h2>Confirm Clear</h2>
+      <p>Are you sure you want to clear the delivery invoices?</p>
+      <div class="modal-buttons">
+        <button id="confirmClearDelivery" onclick="confirmClearDelivery()">OK</button>
+        <button id="cancelClearDelivery" onclick="closeModal('clearDeliveryModal')">Cancel</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Confirmation Modal for Clear Invoice History -->
+  <div id="clearHistoryModal" class="modal" style="display:none;">
+    <div class="modal-content">
+      <h2>Confirm Clear</h2>
+      <p>Are you sure you want to clear the invoice history?</p>
+      <div class="modal-buttons">
+        <button id="confirmClearHistory" onclick="confirmClearHistory()">OK</button>
+        <button id="cancelClearHistory" onclick="closeModal('clearHistoryModal')">Cancel</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="Invoice.js"></script>
+</body>
+</html>
