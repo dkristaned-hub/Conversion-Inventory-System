@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Profile Settings - Cooking Oil Inventory System</title>
+  <link rel="stylesheet" href="Main.css">
+  <link rel="stylesheet" href="profile.css">
+</head>
+<body>
+  <!-- Mobile Menu Toggle -->
+  <button class="mobile-menu-toggle" onclick="toggleMobileMenu()" aria-label="Toggle menu">☰</button>
+  <div class="sidebar-overlay" onclick="closeMobileMenu()"></div>
+
+  <div class="flex h-screen">
+    <!-- Sidebar -->
+    <aside class="sidebar">
+      <div class="sidebar-header">
+        <h2 class="sidebar-title">Conversion Inventory<br>System</h2>
+        <button class="minimize-btn" onclick="toggleSidebar()"></button>
+        <div class="sidebar-user-info">
+          <div class="sidebar-profile-picture">
+            <img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxMDAiIGhlaWdodD0iMTAwIiB2aWV3Qm94PSIwIDAgMTAwIDEwMCI+CiAgPGNpcmNsZSBjeD0iNTAiIGN5PSIzNSIgcj0iMjAiIGZpbGw9IiNDNUNBRDUiLz4KICA8cGF0aCBkPSJNMTUgODVjMC0yNSAzNS0yNSAzNS0yNWgxMHM3LjEgMCAxNyA1YzEyLjUgNi4zIDE4IDIwIDE4IDIwSDE1eiIgZmlsbD0iI0M1Q0FENSIvPgo8L3N2Zz4=" alt="Profile Picture">
+          </div>
+          <p class="sidebar-welcome">Welcome, Guest</p>
+          <p class="sidebar-mode">Admin Mode</p>
+        </div>
+      </div>
+      <nav class="sidebar-nav">
+        <a href="Main.html" class="nav-item">Dashboard</a>
+        <a href="Inventory.html" class="nav-item">Inventory</a>
+        <a href="Monitoring.html" class="nav-item">Monitoring</a>
+        <a href="Invoice.html" class="nav-item">Invoice</a>
+        <a href="Employee.html" class="nav-item">Employee</a>
+        <a href="Profile.html" class="nav-item active">Profile Settings</a>
+        <a href="Activitylog.html" class="nav-item">Activity Log</a>
+      </nav>
+      <a href="#" class="nav-item logout-link" onclick="confirmLogout()">Log Out</a>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="main-content">
+      <h1 class="page-title">Profile Settings</h1>
+
+      <!-- Profile Picture -->
+      <section class="content-section profile-picture-section">
+        <div class="profile-picture-container">
+          <div class="profile-picture">
+            <img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxMDAiIGhlaWdodD0iMTAwIiB2aWV3Qm94PSIwIDAgMTAwIDEwMCI+CiAgPGNpcmNsZSBjeD0iNTAiIGN5PSIzNSIgcj0iMjAiIGZpbGw9IiNDNUNBRDUiLz4KICA8cGF0aCBkPSJNMTUgODVjMC0yNSAzNS0yNSAzNS0yNWgxMHM3LjEgMCAxNyA1YzEyLjUgNi4zIDE4IDIwIDE4IDIwSDE1eiIgZmlsbD0iI0M1Q0FENSIvPgo8L3N2Zz4=" alt="Profile Picture" id="profileImage">
+          </div>
+          <button class="primary-button" onclick="document.getElementById('profilePictureInput').click()">Change Profile Picture</button>
+          <input type="file" id="profilePictureInput" accept="image/*" style="display: none;">
+        </div>
+      </section>
+
+      <!-- Account Information -->
+      <section class="content-section">
+        <h2 class="section-title">Account Information</h2>
+        <div class="profile-form">
+          <div class="form-group">
+            <label class="form-label">Username</label>
+            <input type="text" class="form-input" id="username" readonly placeholder="Username">
+          </div>
+          <div class="form-group">
+            <label class="form-label">Full Name</label>
+            <input type="text" class="form-input" id="fullName" placeholder="Enter your full name">
+          </div>
+          <div class="form-group">
+            <label class="form-label">Account Privilege</label>
+            <select class="form-input">
+              <option value="guest">Admin</option>
+              <option value="staff">Manager</option>
+              <option value="manager">Staff</option>
+              <option value="admin">Guest</option>
+            </select>
+          </div>
+          <div class="form-group" style="margin-top: 2rem;">
+            <label class="form-label">Current Password</label>
+            <input type="password" class="form-input" id="currentPassword" placeholder="Enter current password">
+          </div>
+          <div class="form-group">
+            <label class="form-label">New Password</label>
+            <input type="password" class="form-input" id="newPassword" placeholder="Enter new password">
+          </div>
+          <div class="form-group">
+            <label class="form-label">Confirm New Password</label>
+            <input type="password" class="form-input" id="confirmPassword" placeholder="Confirm new password">
+          </div>
+          <div class="form-group" style="text-align: center;">
+            <button class="primary-button" id="changePasswordBtn">Change Password</button>
+          </div>
+        </div>
+      </section>
+
+      <!-- Save Button -->
+      <div class="button-container">
+        <button class="primary-button">Save Changes</button>
+      </div>
+    </main>
+  </div>
+
+  <!-- Password Verification Modal -->
+  <div id="passwordModal" class="modal">
+    <div class="modal-content">
+      <h3>Verify Password</h3>
+      <input type="password" id="verifyPassword" placeholder="Enter your current password">
+      <button id="confirmSave">Confirm</button>
+      <button id="cancelSave">Cancel</button>
+    </div>
+  </div>
+
+  <script src="responsive.js"></script>
+  <script src="ActivityLog.js"></script>
+  <script src="Profile.js"></script>
+</body>
+</html>
