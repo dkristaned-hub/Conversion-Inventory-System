@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cooking Oil Inventory System</title>
+  <link rel="stylesheet" href="Main.css">
+</head>
+<body>
+  <!-- Mobile Menu Toggle -->
+  <button class="mobile-menu-toggle" onclick="toggleMobileMenu()" aria-label="Toggle menu">☰</button>
+  <div class="sidebar-overlay" onclick="closeMobileMenu()"></div>
+
+  <!-- Sidebar -->
+  <div class="flex h-screen">
+    <aside class="sidebar"> 
+      <div class="sidebar-header">
+        <h2 class="sidebar-title">Conversion Inventory<br>System</h2>
+        <button class="minimize-btn" onclick="toggleSidebar()"></button>
+        <div class="sidebar-user-info">
+          <div class="sidebar-profile-picture">
+            <img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxMDAiIGhlaWdodD0iMTAwIiB2aWV3Qm94PSIwIDAgMTAwIDEwMCI+CiAgPGNpcmNsZSBjeD0iNTAiIGN5PSIzNSIgcj0iMjAiIGZpbGw9IiNDNUNBRDUiLz4KICA8cGF0aCBkPSJNMTUgODVjMC0yNSAzNS0yNSAzNS0yNWgxMHM3LjEgMCAxNyA1YzEyLjUgNi4zIDE4IDIwIDE4IDIwSDE1eiIgZmlsbD0iI0M1Q0FENSIvPgo8L3N2Zz4=" alt="Profile Picture">
+          </div>
+          <p class="sidebar-welcome">Welcome, Guest</p>
+          <p class="sidebar-mode">Admin Mode</p>
+        </div>
+      </div>
+      <nav class="sidebar-nav">
+        <a href="Main.html" class="nav-item active">Dashboard</a>
+        <a href="Inventory.html" class="nav-item">Inventory</a>
+        <a href="Monitoring.html" class="nav-item">Monitoring</a>
+        <a href="Invoice.html" class="nav-item">Invoice</a>
+        <a href="Employee.html" class="nav-item">Employee</a>
+        <a href="Profile.html" class="nav-item">Profile Settings</a>
+        <a href="Activitylog.html" class="nav-item">Activity Log</a>
+      </nav>
+      <a href="#" class="nav-item logout-link" onclick="confirmLogout()">Log Out</a>
+    </aside>    <!-- Main Content -->
+    <main class="main-content">
+      <div class="page-header-section">
+        <h1 class="page-title">Dashboard</h1>
+
+        <!-- Top Stats -->
+        <div class="stats-grid">
+        <div class="stat-card">
+          <p class="stat-label">Total Oil Volume</p>
+          <h2 class="stat-value">4,500 kg</h2>
+        </div>
+        <div class="stat-card">
+          <p class="stat-label">Storage Capacity</p>
+          <h2 class="stat-value">0/10,000 kg</h2>
+        </div>
+        <div class="stat-card">
+          <p class="stat-label">Types of Oil</p>
+          <h2 class="stat-value">2</h2>
+        </div>
+        <div class="stat-card">
+          <p class="stat-label">Pending Deliveries</p>
+          <h2 class="stat-value">5</h2>
+        </div>
+      </div>
+      </div>
+
+      <!-- Upcoming Resupply Schedule -->
+      <section class="content-section">
+        <h2 class="section-title">Upcoming Resupply Schedule</h2>
+        <div class="table-search-container">
+          <label for="resupply-date-search" class="search-label">Search by Date:</label>
+          <input type="date" id="resupply-date-search" class="date-search-input" onchange="filterResupplySchedule()">
+          <button type="button" class="search-clear-btn" onclick="clearResupplyFilter()">Clear</button>
+        </div>
+        <div class="table-container-scrollable">
+          <table class="data-table">
+          <thead class="table-header">
+            <tr>
+              <th>Delivery Date</th>
+              <th>Oil Type</th>
+              <th>Supplier</th>
+              <th>Volume (kg)</th>
+              <th>Status</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr class="table-row">
+              <td class="table-cell-muted" colspan="5">No upcoming deliveries</td>
+            </tr>
+          </tbody>
+          </table>
+        </div>
+      </section>
+
+      <!-- Recent Activity -->
+      <section class="content-section">
+        <h2 class="section-title">Recent Activity</h2>
+        <div class="table-search-container">
+          <label for="recent-activity-date-search" class="search-label">Search by Date:</label>
+          <input type="date" id="recent-activity-date-search" class="date-search-input" onchange="filterRecentActivity()">
+          <button type="button" class="search-clear-btn" onclick="clearRecentActivityFilter()">Clear</button>
+        </div>
+        <div class="table-container-scrollable">
+          <table class="data-table" id="recent-activity">
+          <thead class="table-header">
+            <tr>
+              <th>Date</th>
+              <th>Item</th>
+              <th>Action</th>
+              <th>Quantity</th>
+              <th>Weight</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr class="table-row">
+              <td class="table-cell">2025-09-28</td>
+              <td class="table-cell">Coconut Oil</td>
+              <td class="table-cell">Stock In</td>
+              <td class="table-cell">50</td>
+              <td class="table-cell">500 kg</td>
+            </tr>
+          </tbody>
+          </table>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <!-- Logout/Checkout Modal -->
+  <div id="logoutModal" class="modal" style="display:none;" onclick="if(event.target === this) closeModal('logoutModal')">
+    <div class="modal-content logout-modal-content">
+      <div class="logout-modal-header">
+        <h2 class="logout-title">Logout</h2>
+        <p class="logout-message" id="logoutMessage">Are you sure you want to logout?</p>
+      </div>
+      <div class="logout-modal-divider"></div>
+      <div class="logout-modal-buttons">
+        <button id="cancelLogoutBtn" class="logout-btn-cancel">Cancel</button>
+        <div class="logout-btn-divider"></div>
+        <button id="checkoutBtn" class="logout-btn-confirm checkout-confirm">Confirm</button>
+        <button id="logoutBtn" class="logout-btn-confirm logout-confirm" style="display:none;">Confirm</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="responsive.js"></script>
+  <script src="Main.js"></script>
+</body>
+</html>
