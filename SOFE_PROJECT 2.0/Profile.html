@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Profile Settings - Cooking Oil Inventory System</title>
+  <link rel="stylesheet" href="Main.css">
+  <link rel="stylesheet" href="profile.css">
+</head>
+<body class="profile-page">
+  <!-- Mobile Menu Toggle -->
+  <button class="mobile-menu-toggle" onclick="toggleMobileMenu()" aria-label="Toggle menu">☰</button>
+  <div class="sidebar-overlay" onclick="closeMobileMenu()"></div>
+
+  <div class="flex h-screen">
+    <!-- Sidebar -->
+    <aside class="sidebar">
+      <div class="sidebar-header">
+        <h2 class="sidebar-title">Conversion Inventory<br>System</h2>
+        <button class="minimize-btn" onclick="toggleSidebar()"></button>
+        <div class="sidebar-user-info">
+          <div class="sidebar-profile-picture">
+            <img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxMDAiIGhlaWdodD0iMTAwIiB2aWV3Qm94PSIwIDAgMTAwIDEwMCI+CiAgPGNpcmNsZSBjeD0iNTAiIGN5PSIzNSIgcj0iMjAiIGZpbGw9IiNDNUNBRDUiLz4KICA8cGF0aCBkPSJNMTUgODVjMC0yNSAzNS0yNSAzNS0yNWgxMHM3LjEgMCAxNyA1YzEyLjUgNi4zIDE4IDIwIDE4IDIwSDE1eiIgZmlsbD0iI0M1Q0FENSIvPgo8L3N2Zz4=" alt="Profile Picture">
+          </div>
+          <p class="sidebar-welcome">Welcome, Guest</p>
+          <p class="sidebar-mode">Admin Mode</p>
+        </div>
+      </div>
+      <nav class="sidebar-nav">
+        <a href="Main.html" class="nav-item">Dashboard</a>
+        <a href="Inventory.html" class="nav-item">Inventory</a>
+        <a href="Invoice.html" class="nav-item">Invoice</a>
+        <a href="Employee.html" class="nav-item">Employee</a>
+        <a href="Profile.html" class="nav-item">Profile Settings</a>
+        <a href="Activitylog.html" class="nav-item">Activity Log</a>
+      </nav>
+      <a href="#" class="nav-item logout-link" onclick="confirmLogout()">Log Out</a>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="main-content profile-main">
+      <section class="profile-hero-card">
+        <div class="profile-hero-gradient"></div>
+        <div class="profile-hero-content">
+          <div class="profile-hero-avatar" id="profileAvatarTrigger">
+            <img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxMDAiIGhlaWdodD0iMTAwIiB2aWV3Qm94PSIwIDAgMTAwIDEwMCI+CiAgPGNpcmNsZSBjeD0iNTAiIGN5PSIzNSIgcj0iMjAiIGZpbGw9IiNDNUNBRDUiLz4KICA8cGF0aCBkPSJNMTUgODVjMC0yNSAzNS0yNSAzNS0yNWgxMHM3LjEgMCAxNyA1YzEyLjUgNi4zIDE4IDIwIDE4IDIwSDE1eiIgZmlsbD0iI0M1Q0FENSIvPgo8L3N2Zz4=" alt="Profile Picture" id="profileImage">
+          </div>
+          <div class="profile-hero-text">
+            <p class="profile-hero-overline">Account Overview</p>
+            <h1 class="profile-hero-title" id="profileNameHeading">Your Profile</h1>
+            <p class="profile-hero-description">Manage how your personal information, security settings, and notifications appear across the system.</p>
+            <div class="profile-hero-meta">
+              <span class="meta-chip">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M12 12c2.761 0 5-2.239 5-5s-2.239-5-5-5-5 2.239-5 5 2.239 5 5 5Zm0 2c-4.418 0-8 2.015-8 4.5V21h16v-2.5c0-2.485-3.582-4.5-8-4.5Z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+                <span id="profileRoleLabel">Admin Mode</span>
+              </span>
+              <span class="meta-chip meta-chip--accent">
+                <span class="status-dot"></span>
+                Active Account
+              </span>
+            </div>
+          </div>
+        </div>
+      </section>
+      <input type="file" id="profilePictureInput" accept="image/*" hidden>
+
+      <div class="profile-content-grid">
+        <section class="profile-card account-card">
+          <header class="profile-card-header">
+            <div>
+              <h2>Account Details</h2>
+              <p>Keep your display name and role information accurate.</p>
+            </div>
+          </header>
+          <div class="profile-card-body">
+            <div class="profile-field-grid">
+              <div class="profile-field">
+                <label for="username">Username</label>
+                <input type="text" class="form-input" id="username" placeholder="Enter username" data-profile-editable>
+              </div>
+              <div class="profile-field">
+                <label for="fullName">Full Name</label>
+                <input type="text" class="form-input" id="fullName" placeholder="Enter your full name" data-profile-editable>
+              </div>
+              <div class="profile-field">
+                <label>Account Privilege</label>
+                <div class="profile-role-pill" id="accountPrivilegeDisplay">Admin</div>
+              </div>
+              <div class="profile-field">
+                <label for="emailAddress">Email Address</label>
+                <input type="email" class="form-input" id="emailAddress" placeholder="you@example.com" data-profile-editable>
+              </div>
+            </div>
+            <div class="profile-inline-actions">
+              <button type="button" class="primary-button" id="saveProfileBtn">Update Account</button>
+            </div>
+          </div>
+        </section>
+
+        <section class="profile-card security-card">
+          <header class="profile-card-header">
+            <div>
+              <h2>Security</h2>
+              <p>Change your password to keep your account secure.</p>
+            </div>
+          </header>
+          <div class="profile-card-body">
+            <div class="profile-field-grid profile-field-grid--columns">
+              <div class="profile-field">
+                <label for="currentPassword">Current Password</label>
+                <input type="password" class="form-input" id="currentPassword" placeholder="Enter current password" data-profile-editable>
+              </div>
+              <div class="profile-field">
+                <label for="newPassword">New Password</label>
+                <input type="password" class="form-input" id="newPassword" placeholder="Enter new password" data-profile-editable>
+              </div>
+              <div class="profile-field">
+                <label for="confirmPassword">Confirm New Password</label>
+                <input type="password" class="form-input" id="confirmPassword" placeholder="Confirm new password" data-profile-editable>
+              </div>
+            </div>
+            <div class="profile-inline-actions">
+              <button type="button" class="primary-button secondary" id="changePasswordBtn">Update Password</button>
+              <p class="muted-hint">Passwords must contain at least 8 characters.</p>
+            </div>
+          </div>
+        </section>
+
+        <section class="profile-card preferences-card">
+          <header class="profile-card-header">
+            <div>
+              <h2>Notifications & Preferences</h2>
+              <p>Select how you’d like to be notified about activity.</p>
+            </div>
+          </header>
+          <div class="profile-card-body">
+            <div class="preference-list">
+              <label class="preference-toggle">
+                <div>
+                  <span class="toggle-title">Email Alerts</span>
+                  <span class="toggle-caption">Receive updates about inventory changes and activity logs.</span>
+                </div>
+                <input type="checkbox" id="emailAlertsToggle">
+                <span class="toggle-slider" aria-hidden="true"></span>
+              </label>
+              <label class="preference-toggle">
+                <div>
+                  <span class="toggle-title">Monthly Reports</span>
+                  <span class="toggle-caption">Get a summary of conversions and invoices each month.</span>
+                </div>
+                <input type="checkbox" id="monthlyReportsToggle">
+                <span class="toggle-slider" aria-hidden="true"></span>
+              </label>
+            </div>
+            <div class="profile-inline-actions">
+              <button type="button" class="primary-button secondary" id="manageNotificationsBtn">Update Preferences</button>
+            </div>
+          </div>
+        </section>
+      </div>
+    </main>
+  </div>
+
+  <!-- Password Verification Modal -->
+  <div id="passwordModal" class="modal" style="display:none;" onclick="if(event.target === this) closeModal('passwordModal')">
+    <div class="modal-content admin-password-modal">
+      <h2 class="admin-password-title">Verify Password</h2>
+      <input type="password" id="verifyPassword" class="admin-password-input" placeholder="Enter your current password" autocomplete="off">
+      <div class="admin-password-buttons">
+        <button id="confirmSave" class="admin-password-confirm">Confirm</button>
+        <button id="cancelSave" class="admin-password-cancel">Cancel</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Logout/Checkout Modal -->
+  <div id="logoutModal" class="modal" style="display:none;" onclick="if(event.target === this) closeModal('logoutModal')">
+    <div class="modal-content logout-modal-content">
+      <div class="logout-modal-header">
+        <div class="logout-icon-wrapper">
+          <svg width="48" height="48" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M17 16L21 12M21 12L17 8M21 12H7M13 16V17C13 18.6569 11.6569 20 10 20H6C4.34315 20 3 18.6569 3 17V7C3 5.34315 4.34315 4 6 4H10C11.6569 4 13 5.34315 13 7V8" stroke="#EF4444" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </div>
+        <h2 class="logout-title">Log Out</h2>
+        <p class="logout-message" id="logoutMessage">Are you sure you want to log out?</p>
+      </div>
+      <div class="logout-modal-divider"></div>
+      <div class="logout-modal-buttons">
+        <button id="cancelLogoutBtn" class="logout-btn-cancel">
+          <span>Cancel</span>
+        </button>
+        <div class="logout-btn-divider"></div>
+        <button id="checkoutBtn" class="logout-btn-confirm checkout-confirm" style="display:none;">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" style="margin-right: 0.5rem;">
+            <path d="M9 12L11 14L15 10M21 12C21 16.9706 16.9706 21 12 21C7.02944 21 3 16.9706 3 12C3 7.02944 7.02944 3 12 3C16.9706 3 21 7.02944 21 12Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+          <span>Check Out & Log Out</span>
+        </button>
+        <button id="logoutBtn" class="logout-btn-confirm logout-confirm">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" style="margin-right: 0.5rem;">
+            <path d="M17 16L21 12M21 12L17 8M21 12H7M13 16V17C13 18.6569 11.6569 20 10 20H6C4.34315 20 3 18.6569 3 17V7C3 5.34315 4.34315 4 6 4H10C11.6569 4 13 5.34315 13 7V8" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+          <span>Log Out</span>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <script src="responsive.js"></script>
+  <script src="ActivityLog.js"></script>
+  <script src="Profile.js"></script>
+</body>
+</html>

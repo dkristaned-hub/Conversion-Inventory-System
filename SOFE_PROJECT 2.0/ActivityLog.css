@@ -1,0 +1,272 @@
+.logout-modal-content {
+  width: 340px;
+  max-width: 90vw;
+  padding: 0;
+  background-color: #FFFFFF;
+.modal-content.logout-modal-content {
+  width: 340px !important;
+  max-width: 90vw !important;
+  margin: 0 !important;
+  top: 50% !important;
+  left: 50% !important;
+  transform: translate(-50%, -50%) !important;
+  padding: 0 !important;
+  border-radius: 0.875rem !important;
+  border: 1px solid rgba(0, 0, 0, 0.25) !important;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3) !important;
+}
+  border-radius: 0.875rem;
+  border: 1px solid rgba(0, 0, 0, 0.25);
+  overflow: hidden;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  margin: 0;
+  z-index: 10001;
+}
+
+.logout-modal-header {
+  padding: 2rem 1.5rem 1.5rem 1.5rem;
+  text-align: center;
+}
+
+.logout-icon-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 64px;
+  height: 64px;
+  margin: 0 auto 1rem auto;
+  background-color: #FEE2E2;
+  border-radius: 50%;
+  border: 2px solid #FECACA;
+}
+
+.logout-title {
+  color: #1F2937;
+  font-size: 1.5rem;
+  font-weight: 700;
+  margin: 0 0 0.5rem 0;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  letter-spacing: -0.01em;
+}
+
+.logout-message {
+  color: #6B7280;
+  font-size: 0.9375rem;
+  font-weight: 400;
+  margin: 0;
+  line-height: 1.5;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+}
+
+.logout-modal-content svg {
+  flex-shrink: 0;
+}
+
+.logout-modal-divider {
+  height: 1px;
+  background-color: #E5E7EB;
+  margin: 0;
+}
+
+.logout-modal-buttons {
+  display: flex;
+  align-items: center;
+  height: 56px;
+}
+
+.logout-btn-cancel {
+  flex: 1;
+  height: 100%;
+  background-color: transparent;
+  color: #374151 !important;
+  border: none !important;
+  border-left: none !important;
+  border-right: none !important;
+  border-top: none !important;
+  border-bottom: none !important;
+  outline: none !important;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.2s ease, color 0.2s ease;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.logout-btn-cancel:hover {
+  background-color: #F9FAFB;
+  color: #1F2937 !important;
+}
+
+.logout-btn-cancel:active {
+  background-color: #E5E7EB;
+  color: #111827 !important;
+}
+
+#cancelLogoutBtn {
+  color: #374151 !important;
+  border: none !important;
+  border-left: none !important;
+  border-right: none !important;
+  border-top: none !important;
+  border-bottom: none !important;
+  outline: none !important;
+}
+
+.logout-btn-divider {
+  width: 1px;
+  height: 100%;
+  background-color: #E5E7EB;
+}
+
+.logout-btn-confirm {
+  flex: 1;
+  height: 100%;
+  background-color: transparent;
+  border: none;
+  font-size: 1rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  border-left: 2px solid #EF4444 !important;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+}
+
+.logout-btn-confirm.logout-confirm,
+.logout-btn-confirm.checkout-confirm,
+button.logout-btn-confirm {
+  color: #EF4444 !important;
+}
+
+.logout-confirm {
+  color: #EF4444 !important;
+}
+
+.checkout-confirm {
+  color: #EF4444 !important;
+}
+
+#checkoutBtn,
+#logoutBtn,
+button#checkoutBtn,
+button#logoutBtn,
+.logout-modal-buttons button.logout-btn-confirm,
+.logout-modal-buttons #checkoutBtn,
+.logout-modal-buttons #logoutBtn,
+.logout-modal-content #checkoutBtn,
+.logout-modal-content #logoutBtn,
+.logout-modal-content .logout-btn-confirm,
+.logout-modal-buttons .checkout-confirm,
+.logout-modal-buttons .logout-confirm {
+  color: #EF4444 !important;
+  border-left: 2px solid #EF4444 !important;
+}
+
+.logout-modal-buttons .logout-btn-confirm,
+.logout-modal-buttons button[class*="confirm"],
+.logout-modal-content button.logout-btn-confirm,
+.logout-modal-buttons #checkoutBtn,
+.logout-modal-buttons #logoutBtn,
+.logout-modal-content #checkoutBtn,
+.logout-modal-content #logoutBtn,
+button.logout-btn-confirm.checkout-confirm,
+button.logout-btn-confirm.logout-confirm {
+  color: #EF4444 !important;
+}
+
+.logout-modal-content button.logout-btn-confirm,
+.logout-modal-content .logout-modal-buttons button,
+div.logout-modal-content div.logout-modal-buttons button.logout-btn-confirm,
+div.logout-modal-content div.logout-modal-buttons button#checkoutBtn,
+div.logout-modal-content div.logout-modal-buttons button#logoutBtn {
+  color: #EF4444 !important;
+  border-left: 2px solid #EF4444 !important;
+}
+
+div#logoutModal div.logout-modal-content div.logout-modal-buttons button.logout-btn-confirm,
+div#logoutModal button#checkoutBtn,
+div#logoutModal button#logoutBtn {
+  color: #EF4444 !important;
+}
+
+#checkoutBtn:hover,
+#logoutBtn:hover,
+button#checkoutBtn:hover,
+button#logoutBtn:hover,
+.logout-btn-confirm:hover,
+.logout-btn-confirm.checkout-confirm:hover,
+.logout-btn-confirm.logout-confirm:hover,
+.logout-modal-buttons .logout-btn-confirm:hover,
+.logout-modal-buttons button.logout-btn-confirm:hover,
+.logout-modal-content .logout-btn-confirm:hover,
+div#logoutModal button.logout-btn-confirm:hover,
+div#logoutModal #checkoutBtn:hover,
+div#logoutModal #logoutBtn:hover {
+  color: #FFFFFF !important;
+  background-color: #EF4444 !important;
+  border-left: 2px solid #DC2626 !important;
+}
+
+.logout-btn-confirm:active {
+  background-color: #FEE2E2;
+  color: #EF4444 !important;
+}
+
+@media (max-width: 768px) {
+  .logout-modal-content {
+    max-width: 90%;
+  }
+
+  .logout-icon-wrapper {
+    width: 56px;
+    height: 56px;
+  }
+
+  .logout-icon-wrapper svg {
+    width: 40px;
+    height: 40px;
+  }
+
+  .logout-title {
+    font-size: 1.25rem;
+  }
+
+  .logout-message {
+    font-size: 0.875rem;
+  }
+
+  .logout-modal-buttons {
+    height: 52px;
+  }
+
+  .logout-btn-cancel,
+  .logout-btn-confirm {
+    font-size: 0.9375rem;
+  }
+
+  .logout-btn-confirm svg {
+    width: 16px;
+    height: 16px;
+  }
+}
+
+/* Ensure logout modal overrides generic modal-content positioning */
+.modal-content.logout-modal-content {
+  position: absolute !important;
+  top: 50% !important;
+  left: 50% !important;
+  transform: translate(-50%, -50%) !important;
+  margin: 0 !important;
+}
+

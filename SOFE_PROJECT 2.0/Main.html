@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cooking Oil Inventory System</title>
+  <link rel="stylesheet" href="Main.css">
+</head>
+<body>
+  <!-- Mobile Menu Toggle -->
+  <button class="mobile-menu-toggle" onclick="toggleMobileMenu()" aria-label="Toggle menu">☰</button>
+  <div class="sidebar-overlay" onclick="closeMobileMenu()"></div>
+
+  <!-- Sidebar -->
+  <div class="flex h-screen">
+    <aside class="sidebar"> 
+      <div class="sidebar-header">
+        <h2 class="sidebar-title">Conversion Inventory<br>System</h2>
+        <button class="minimize-btn" onclick="toggleSidebar()"></button>
+        <div class="sidebar-user-info">
+          <div class="sidebar-profile-picture">
+            <img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxMDAiIGhlaWdodD0iMTAwIiB2aWV3Qm94PSIwIDAgMTAwIDEwMCI+CiAgPGNpcmNsZSBjeD0iNTAiIGN5PSIzNSIgcj0iMjAiIGZpbGw9IiNDNUNBRDUiLz4KICA8cGF0aCBkPSJNMTUgODVjMC0yNSAzNS0yNSAzNS0yNWgxMHM3LjEgMCAxNyA1YzEyLjUgNi4zIDE4IDIwIDE4IDIwSDE1eiIgZmlsbD0iI0M1Q0FENSIvPgo8L3N2Zz4=" alt="Profile Picture">
+          </div>
+          <p class="sidebar-welcome">Welcome, Guest</p>
+          <p class="sidebar-mode">Admin Mode</p>
+        </div>
+      </div>
+      <nav class="sidebar-nav">
+        <a href="Main.html" class="nav-item">Dashboard</a>
+        <a href="Inventory.html" class="nav-item">Inventory</a>
+        <a href="Invoice.html" class="nav-item">Invoice</a>
+        <a href="Employee.html" class="nav-item">Employee</a>
+        <a href="Profile.html" class="nav-item">Profile Settings</a>
+        <a href="Activitylog.html" class="nav-item">Activity Log</a>
+      </nav>
+      <a href="#" class="nav-item logout-link" onclick="confirmLogout()">Log Out</a>
+    </aside>    <!-- Main Content -->
+    <main class="main-content">
+      <div class="page-header-section">
+        <h1 class="page-title">Dashboard</h1>
+
+        <!-- Top Stats -->
+        <div class="stats-grid">
+        <div class="stat-card" data-tooltip="Net kilograms of oil currently on hand (stock in minus stock out).">
+          <p class="stat-label">Total Oil Volume</p>
+          <div style="display: flex; flex-direction: column; gap: 8px;">
+            <div style="display: flex; justify-content: space-between; align-items: center;">
+              <span class="stat-subtitle" id="total-oil-title">Total Oil</span>
+              <button class="stat-toggle-btn" id="toggle-total-oil-btn" onclick="toggleTotalOilView()" title="Switch between Total, Coconut, and Palm Oil views">Coconut</button>
+            </div>
+            <h2 class="stat-value" id="total-oil-display">4,500 kg</h2>
+          </div>
+        </div>
+        <div class="stat-card" data-tooltip="Shows how much of the storage capacity is filled right now.">
+          <p class="stat-label">Storage Capacity</p>
+          <div style="display: flex; flex-direction: column; gap: 8px;">
+            <div style="display: flex; justify-content: space-between; align-items: center;">
+              <span class="stat-subtitle" id="storage-title">Coconut Oil</span>
+              <div style="display: flex; gap: 8px;">
+                <button class="stat-toggle-btn" id="toggle-oil-btn" onclick="toggleOilView()" title="Switch between Coconut and Palm Oil">Palm</button>
+                <button class="stat-edit-btn" onclick="openStorageCapacityModal()" title="Set Storage Capacity">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                  </svg>
+                </button>
+              </div>
+            </div>
+            <h2 class="stat-value" id="storage-display">0/5000 kg</h2>
+          </div>
+        </div>
+        <div class="stat-card" data-tooltip="Count of unique oil varieties actively tracked in inventory. Click to view details." onclick="showOilTypesModal()">
+          <p class="stat-label">Types of Oil</p>
+          <h2 class="stat-value">2</h2>
+        </div>
+        <div class="stat-card" data-tooltip="Number of deliveries still awaiting fulfillment or payment follow-up.">
+          <p class="stat-label">Pending Deliveries</p>
+          <div style="display: flex; flex-direction: column; gap: 8px;">
+            <div style="display: flex; justify-content: space-between; align-items: center;">
+              <span class="stat-subtitle" id="pending-title">Total</span>
+              <button class="stat-toggle-btn" id="toggle-pending-btn" onclick="togglePendingDeliveriesView()" title="Switch between Total, Coconut, and Palm pending deliveries">Coconut</button>
+            </div>
+            <h2 class="stat-value" id="pending-display">5</h2>
+          </div>
+        </div>
+      </div>
+      </div>
+
+      <!-- Today's Deliveries -->
+      <section class="content-section">
+        <h2 class="section-title">Today's Deliveries</h2>
+        <div class="table-container-scrollable">
+          <table class="data-table" id="today-deliveries-table">
+          <thead class="table-header">
+            <tr>
+              <th>Invoice ID</th>
+              <th>Time</th>
+              <th>Customer</th>
+              <th>Oil Type</th>
+              <th>Quantity (kg)</th>
+              <th>Amount (₱)</th>
+              <th>Status</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr class="table-row">
+              <td class="table-cell"></td>
+              <td class="table-cell"></td>
+              <td class="table-cell"></td>
+              <td class="table-cell" style="text-align: center;">No deliveries today</td>
+              <td class="table-cell"></td>
+              <td class="table-cell"></td>
+              <td class="table-cell"></td>
+            </tr>
+          </tbody>
+          </table>
+        </div>
+      </section>
+
+      <!-- Upcoming Resupply Schedule -->
+      <section class="content-section">
+        <h2 class="section-title">Upcoming Resupply Schedule</h2>
+        <div class="table-search-container">
+          <label for="resupply-date-search" class="search-label">Search by Date:</label>
+          <input type="date" id="resupply-date-search" class="date-search-input" onchange="filterResupplySchedule()">
+          <button type="button" class="search-clear-btn" onclick="clearResupplyFilter()">Clear</button>
+        </div>
+        <div class="table-container-scrollable">
+          <table class="data-table">
+          <thead class="table-header">
+            <tr>
+              <th>Delivery Date</th>
+              <th>Oil Type</th>
+              <th>Customer</th>
+              <th>Volume (kg)</th>
+              <th>Status</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr class="table-row">
+              <td class="table-cell-muted" colspan="5" style="text-align: center;">No upcoming deliveries</td>
+            </tr>
+          </tbody>
+          </table>
+        </div>
+      </section>
+    </main>
+  </div>
+  <!-- Admin Password Modal -->
+  <div id="adminPasswordModal" class="modal" style="display:none;" onclick="if(event.target === this) closeModal('adminPasswordModal')">
+    <div class="modal-content inventory-modal-content">
+      <div class="modal-header">
+        <h2>Admin Authentication</h2>
+        <button class="modal-close-btn" onclick="closeModal('adminPasswordModal')">×</button>
+      </div>
+      <form id="adminPasswordForm" class="inventory-form">
+        <div class="form-group">
+          <label class="form-label" for="admin-password-input">Admin Password *</label>
+          <input type="password" id="admin-password-input" class="form-input" required placeholder="Enter admin password">
+        </div>
+        <div class="modal-buttons">
+          <button type="submit" class="primary-button">Authenticate</button>
+          <button type="button" class="primary-button secondary-btn" onclick="closeModal('adminPasswordModal')">Cancel</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Storage Capacity Modal -->
+  <div id="storageCapacityModal" class="modal" style="display:none;" onclick="if(event.target === this) closeModal('storageCapacityModal')">
+    <div class="modal-content inventory-modal-content">
+      <div class="modal-header">
+        <h2 id="storageCapacityModalTitle">Set Storage Capacity</h2>
+        <button class="modal-close-btn" onclick="closeModal('storageCapacityModal')">×</button>
+      </div>
+      <form id="storageCapacityForm" class="inventory-form">
+        <div class="form-group">
+          <label class="form-label" for="coconut-capacity">Coconut Oil Capacity (kg) *</label>
+          <input type="number" id="coconut-capacity" class="form-input" step="0.01" min="1" required placeholder="e.g., 5000">
+        </div>
+        <div class="form-group">
+          <label class="form-label" for="palm-capacity">Palm Oil Capacity (kg) *</label>
+          <input type="number" id="palm-capacity" class="form-input" step="0.01" min="1" required placeholder="e.g., 5000">
+        </div>
+        <div class="modal-buttons">
+          <button type="submit" class="primary-button">Save</button>
+          <button type="button" class="primary-button secondary-btn" onclick="closeModal('storageCapacityModal')">Cancel</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Oil Types Modal -->
+  <div id="oilTypesModal" class="modal" style="display:none;" onclick="if(event.target === this) closeModal('oilTypesModal')">
+    <div class="modal-content inventory-modal-content">
+      <div class="modal-header">
+        <h2>Types of Oil</h2>
+        <button class="modal-close-btn" onclick="closeModal('oilTypesModal')">×</button>
+      </div>
+      <div class="oil-types-list">
+        <ul>
+          <li>Coconut Oil</li>
+          <li>Palm Oil</li>
+        </ul>
+        <div style="text-align: center; margin-top: 1.5rem;">
+          <button class="primary-button" onclick="alert('Button clicked!')">View Details</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Logout/Checkout Modal -->
+  <div id="logoutModal" class="modal" style="display:none;" onclick="if(event.target === this) closeModal('logoutModal')">
+    <div class="modal-content logout-modal-content">
+      <div class="logout-modal-header">
+        <div class="logout-icon-wrapper">
+          <svg width="48" height="48" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M17 16L21 12M21 12L17 8M21 12H7M13 16V17C13 18.6569 11.6569 20 10 20H6C4.34315 20 3 18.6569 3 17V7C3 5.34315 4.34315 4 6 4H10C11.6569 4 13 5.34315 13 7V8" stroke="#EF4444" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </div>
+        <h2 class="logout-title">Log Out</h2>
+        <p class="logout-message" id="logoutMessage">Are you sure you want to log out?</p>
+      </div>
+      <div class="logout-modal-divider"></div>
+      <div class="logout-modal-buttons">
+        <button id="cancelLogoutBtn" class="logout-btn-cancel">
+          <span>Cancel</span>
+        </button>
+        <div class="logout-btn-divider"></div>
+        <button id="checkoutBtn" class="logout-btn-confirm checkout-confirm" style="display:none;">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" style="margin-right: 0.5rem;">
+            <path d="M9 12L11 14L15 10M21 12C21 16.9706 16.9706 21 12 21C7.02944 21 3 16.9706 3 12C3 7.02944 7.02944 3 12 3C16.9706 3 21 7.02944 21 12Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+          <span>Check Out & Log Out</span>
+        </button>
+        <button id="logoutBtn" class="logout-btn-confirm logout-confirm">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" style="margin-right: 0.5rem;">
+            <path d="M17 16L21 12M21 12L17 8M21 12H7M13 16V17C13 18.6569 11.6569 20 10 20H6C4.34315 20 3 18.6569 3 17V7C3 5.34315 4.34315 4 6 4H10C11.6569 4 13 5.34315 13 7V8" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+          <span>Log Out</span>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <script src="responsive.js"></script>
+  <script src="Main.js"></script>
+</body>
+</html>
